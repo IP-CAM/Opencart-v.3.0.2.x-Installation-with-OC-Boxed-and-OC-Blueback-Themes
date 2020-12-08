@@ -1,0 +1,55 @@
+{{ header }}
+<div class="container">
+	<ul class="breadcrumb">
+		{% for breadcrumb in breadcrumbs %}
+		<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+		{% endfor %}
+	</ul>
+	<div class="row">{{ column_left }}
+		{% if column_left and column_right %}
+		{% set class = 'col-sm-6' %}
+		{% elseif column_left or column_right %}
+		{% set class = 'col-sm-9' %}
+		{% else %}
+		{% set class = 'col-sm-12' %}
+		{% endif %}
+		<div id="content" class="{{ class }}">
+			{{ content_top }}
+			<div class="content">
+				<h3>{{ __( 'GDPR request authorization' ) }}</h3>
+
+				{% if error %}
+				<div class="adk-message adk-error" style="display: block;">
+					<div class="adk-message-icon"></div>
+					<div class="adk-message-body">{{ error }}</div>
+				</div>
+				{% endif %}
+
+				{% if success %}
+				<div class="adk-message adk-ok" style="display: block;">
+					<div class="adk-message-icon"></div>
+					<div class="adk-message-body">{{ success }}</div>
+				</div>
+				{% endif %}
+				{# <div class="adk-page-information">
+					<i>{{ __( 'This page provides you with the tools to manage your personal data, which are stored in our store' ) }}</i>
+				</div>
+				<div class="adk-page-notes">
+					{{ __( 'After making a request email will be sent to you with a link to authorize the request' ) }}
+				</div>
+				{% if c( 'request_expire' ) %}
+				<div class="adk-page-notes">
+					{{ __( 'Expiration period for each request, in days:' ) }} {{ c( 'request_expire' ) }}
+				</div>
+				{% endif %} #}
+
+			</div>
+			{{ content_bottom }}
+		</div>
+	{{ column_right }}
+	</div>
+</div>
+<script>
+ADK.locale={{ locale }};
+</script>
+{{ footer }}

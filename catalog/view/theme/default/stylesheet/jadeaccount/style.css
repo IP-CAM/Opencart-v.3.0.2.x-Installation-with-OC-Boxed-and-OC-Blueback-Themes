@@ -1,0 +1,446 @@
+.jade_temp_1 a{
+	text-decoration: none;
+}
+.jade_temp_1{
+	margin-bottom: 15px;
+}
+.jade_temp_1 #column-right.col-sm-3, .jade_temp_2 #column-left.col-sm-3, .jade_temp_3 #column-right.col-sm-3{
+	width: 100%;
+	padding: 0;
+	margin-top: 15px;
+}
+.jade_temp_4 #column-right.col-sm-3{
+	width: 100%;
+	padding: 0;
+}
+.jade_cus_profile{
+	text-align: center;
+	background: #8bd2d2;
+	color: #265330;
+	padding: 50px 0;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+.jade_cus_profile .image{
+	width: 130px;
+	margin: auto;
+	border: 4px solid #fff;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.jade_cus_profile .name{
+	font-size: 20px;
+	padding: 20px 0 10px;
+	text-transform: uppercase;
+	color: #333;
+	font-weight: 600;
+}
+.jade_cus_profile .email{
+	font-size: 14px;
+	color: #333;
+}
+.jd_large_cols ul:before, .jd_large_cols ul:after{
+	display: table;
+	content: " ";
+}
+.jd_large_cols ul:after{
+	clear: both;
+}
+.jd_large_cols ul{
+	list-style: none;
+	padding: 0;
+	margin: 0 -10px;
+}
+.jd_large_cols ul li{
+	float: left;
+	position: relative;
+}
+.jd_large_cols ul li .jd_panel{
+	background: #8bd2d2;
+	padding: 20px 10px;
+	position: relative;
+	border-radius: 5px 5px 0 0;
+}
+.jd_large_cols ul li .jd_panel i{
+	font-size: 90px;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	color: #5fa8a8;
+}
+.jd_large_cols ul li .jd_panel h2{
+	margin-top: 0;
+	font-weight: 600;
+}
+.jd_large_cols ul li .jd_info{
+	display: block;
+	font-size: 13px;
+	color: #333;
+	background: #5fa8a8;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 0 0 5px 5px;
+}
+.jd_right{
+	text-align: right;
+}
+.jd_top_bar{
+	margin-bottom: 15px;
+	clear: both;
+	display: inline-block;
+	width: 100%;
+	font-weight: 600;
+}
+.jd_small_cols {
+	margin-top: 15px;
+}
+.jd_small_cols ul{
+	list-style: none;
+	padding: 0;
+	margin: 0 -10px;
+}
+.jd_small_cols ul:before, .jd_small_cols ul:after{
+	display: table;
+	content: '';
+}
+.jd_small_cols ul:after{
+	clear: both;
+}
+.jd_small_cols ul li{
+	float: left;
+	text-align: center;
+	padding: 0 10px;
+	margin-bottom: 15px;
+}
+.jd_small_cols ul li a{
+	display: block;
+	border: 1px solid #ddd;
+	text-decoration: none;
+	border-radius: 5px;
+	color: #217474;
+	border-bottom: 5px;
+	text-decoration: none;
+	position: relative;
+	background: #fff;
+}
+.jd_small_cols ul li a:after{
+	content: '';
+	display: block;
+	width: 100%;
+	height: 4px;
+	background: #5fa8a8;
+	/*background-image: linear-gradient(to right, #213e3a, #246046, #4a803f, #879c2a, #d7b00d);*/
+	position: absolute;
+	bottom: 0;
+}
+.jd_small_cols ul li i{
+	display: block;
+	font-size: 40px;
+	padding: 15px 0;
+}
+.jd_small_cols ul li span{
+	display: block;
+	padding-bottom: 15px;
+	font-size: 15px;
+}
+.jleft{
+	text-align: left;
+}
+.jcenter{
+	text-align: center;
+}
+.jright{
+	text-align: right;
+}
+.jd_table{
+	width: 100%;
+	max-width: 100%;
+	border: 1px solid #ddd;
+	background: #fff;
+}
+.jd_table > thead > tr > th{
+	vertical-align: bottom;
+	border-bottom: 2px solid #ddd;
+	font-size: 14px;
+}
+.jd_table > tbody > tr > td, .jd_table > tbody > tr > th, .jd_table > tfoot > tr > td, .jd_table > tfoot > tr > th, .jd_table > thead > tr > td, .jd_table > thead > tr > th{
+	padding: 10px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 1px solid #ddd;
+	font-size: 14px;
+}
+.jd_btn_thm{
+	background: #5fa8a8;
+	/*background-image: linear-gradient(to right, #213e3a, #246046, #4a803f, #879c2a, #d7b00d);*/
+	border: none;
+	border-radius: 3px;
+	color: #fff;
+	padding: 6px 12px;
+}
+.jd_btn_thm i{
+	font-size: 14px;
+}
+.jd_latest_order{
+	padding: 10px;
+	background: #ededed;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+.jd_latest_order .jd_inner_table{
+	overflow: auto;
+}
+.jd_related_pr ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.jd_related_pr ul li{
+	border-radius: 0px 0px 5px 5px;
+	background: #fff;
+	overflow: hidden;
+	border: 1px solid #ddd;
+}
+.jd_related_pr .owl-wrapper-outer{
+	padding: 0;
+	border: none;
+	box-shadow: none;
+}
+.jd_related_pr .jd_caption{
+	padding: 10px;
+}
+.jd_related_pr .jd_caption .name{
+	margin-top: 0;
+	color: #333;
+}
+.jd_related_pr .jd_caption .price{
+	color: #333;
+}
+.jd_related_pr .jd_caption .description{
+	color: #333;
+	font-size: 12px;
+}
+.jd_heading{
+	background: #8bd2d2;
+	/*background-image: linear-gradient(to right, #213e3a, #246046, #4a803f, #879c2a, #d7b00d);*/
+	color: #333;
+	font-size: 16px;
+	padding: 10px;
+	border-radius: 5px;
+	margin-top: 0;
+}
+.jd_related_pr .image{
+	text-align: center;
+	padding: 10px;
+}
+.jd_related_pr .image img{
+	display: block;
+	max-width: 100%;
+}
+.jd_related_pr .button-group {
+    border-top: 1px solid #ddd;
+    background: #8bd2d2;
+    /*background-image: linear-gradient(to left, #213e3a, #246046, #4a803f, #879c2a, #d7b00d);*/
+    overflow: auto;
+    clear: both;
+}
+.jd_related_pr .button-group button {
+    width: 60%;
+    border: none;
+    display: inline-block;
+    float: left;
+    background: initial;
+    color: #333;
+    line-height: 38px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+.jd_related_pr .button-group button + button {
+    width: 20%;
+    border-left: 1px solid #ddd;
+}
+.jd_related_pr .jd_heading{
+	margin-bottom: 0;
+	border-radius: 5px 5px 0 0;
+}
+.jade_contact form{
+	margin-top: 20px;
+}
+.jade_contact .form-control{
+	border: none;
+	box-shadow: none;
+	border-bottom: 2px solid #8bd2d2;
+	border-radius: 0;
+	min-height: 40px;
+}
+.jade_temp_2 .jd_related_pr .image{
+	float: left;
+	width: 40%;
+}
+.jade_temp_2 .jd_related_pr .jd_caption{
+	padding: 10px;
+	float: right;
+	width: 60%;
+}
+
+.jade_temp_3 .jd_large_cols ul{
+	display: block;
+}
+.jade_temp_3 .jd_large_cols ul li{
+	width: 100%;
+	display: block;
+	margin-bottom: 15px;
+}
+.jade_temp_3 .jd_related_pr .image{
+	float: left;
+	width: 40%;
+}
+.jade_temp_3 .jd_related_pr .jd_caption{
+	float: right;
+	width: 60%;
+}
+.jade_temp_4 .jd_small_cols ul li i{
+	display: inline-block;
+	border-right: 1px solid #ddd;
+}
+.jade_temp_4 .jd_small_cols ul li span{
+	display: inline-block;
+	padding-bottom: 15px;
+	font-size: 15px;
+	padding-left: 10px;
+}
+.jade_temp_4 .jd_small_cols ul li{
+	text-align: left;
+}
+.jade_temp_4 .jade_cus_profile{
+	text-align: left;
+	padding: 10px 20px;
+}
+.jade_temp_4 .jade_cus_profile .image{
+	display: inline-block;
+	vertical-align: middle;
+}
+.jade_temp_4 .jade_cus_profile .jd_cus_info{
+	display: inline-block;
+	padding-left: 20px;
+}
+.jade_temp_4 .jade_cus_profile .jd_action_btn{
+	display: inline-block;
+	text-align: right;
+	float: right;
+	margin-top: 15px;
+}
+.jade_temp_4 .jade_cus_profile .jd_action_btn a{
+	background: #5fa8a8;
+	color: #000;
+	width: 60px;
+	height: 60px;
+	display: inline-block;
+	border-radius: 50%;
+	text-align: center;
+}
+.jade_temp_4 .jade_cus_profile .jd_action_btn i{
+	font-size: 28px;
+	padding-top: 16px;
+}
+.jade_temp_4 .jd_related_pr .image {
+    float: left;
+    width: 40%;
+}
+.jade_temp_4 .jd_related_pr .jd_caption {
+    padding: 10px;
+    float: right;
+    width: 60%;
+}
+.upload-mydp {
+	cursor: pointer;
+}
+@media(min-width: 768px){
+	.jd_large_cols ul li{
+		width: 50%;
+		padding: 0 10px;
+		margin-bottom: 10px;
+	}
+	.jd_small_cols ul li{
+		width: calc(100% / 4);
+	}
+	.jd_top_bar{
+		font-size: 15px;
+	}
+	.jade_temp_3 .jd_small_cols ul li{
+		width: calc(100% / 3);
+	}
+	.jade_temp_4 .jd_small_cols ul li{
+		width: calc(100% / 1);
+	}
+	.jade_temp_4 .jd_small_cols ul li i{
+		font-size: 25px;
+		padding: 18px 20px;
+	}
+	.jade_temp_4 .jd_related_pr ul li{
+		width: 50%;
+		float: left;
+	}
+	.jade_temp_2 .jd_related_pr ul li{
+		width: 50%;
+		float: left;
+	}
+}
+@media(min-width: 980px){
+	.jd_large_cols ul li{
+		width: 33.3333%;
+		padding: 0 10px;
+		margin-bottom: 20px;
+	}
+	.jd_flex{
+		flex-flow: wrap;
+		display: flex;
+	}
+	.jade_temp_3 .jd_small_cols ul li{
+		width: calc(100% / 4);
+	}
+	.jade_temp_4 .jade_cus_profile .jd_cus_info{
+		width: 41%;
+	}
+}
+@media(min-width: 1200px){
+	.jade_temp_4 .jade_cus_profile .jd_cus_info{
+		width: 50%;
+	}
+}
+@media(max-width: 767px){
+	.jd_large_cols ul li{
+		width: 100%;
+		padding: 0 10px;
+		margin-bottom: 10px;
+	}
+	.jd_small_cols ul li{
+		width: calc(100% / 2);
+	}
+	.jd_top_bar{
+		font-size: 14px;
+	}
+	.jade_contact{
+		margin-bottom: 15px;
+	}
+	.jade_temp_4 .jd_small_cols ul li{
+		width: calc(100% / 1);
+	}
+	.jade_temp_4 .jd_small_cols ul li i{
+		font-size: 21px;
+		padding: 18px 10px;
+	}
+	.jade_temp_4 .jd_small_cols ul li span{
+		font-size: 12px;
+	}
+	.jade_temp_4 .jade_cus_profile .jd_action_btn{
+		width: 100%;
+	}
+	.jade_cus_profile .image{
+		width: 100px;
+	}
+	.j-hidden-xs{
+		display: none !important;
+	}
+}

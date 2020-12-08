@@ -1,0 +1,81 @@
+{% if jcategories %}
+<div class="row">
+	<div class="col-sm-12 jsub-category {% if sublayout == '0' %} j-list {% endif %}">
+		{% if moduletitle %}
+		<h2>{{ jheading }}</h2>
+		{% endif %}
+	  	<ul class="list-inline {% if carousel %} owl-carousel {% endif %}">
+		    {% for category in jcategories %}
+		    <li class="item">
+		    	<div>
+	    			{% if category.thumb %}
+			      	<div class="jimage">
+			      		<a href="{{ category.href }}"><img src="{{ category.thumb }}" /></a>
+			      	</div>
+			      	{% endif %}
+			      	{% if category.name %}
+			      	<h4>{{ category.name }}</h4>
+	    			{% endif %}
+			    	{% if category.description %}
+			      	<div class="matter">{{ category.description }}</div>
+			      	{% endif %}
+			      	<div class="button-mask"><a class="viewall" href="{{ category.href }}">{{ view }}</a></div>
+			    </div>
+		    </li>
+		    {% endfor %}
+	  	</ul>
+	</div>
+</div>
+<style type="text/css">
+{% if bordercolor or bgcolor %}
+.jsub-category li > div {
+	{% if bgcolor %}
+	background-color: {{ bgcolor }};
+	{% endif %}
+
+	{% if bordercolor %}
+	border-color: {{ bordercolor }};
+	{% endif %}
+}
+{% endif %}
+
+{% if bghcolor %}
+.jsub-category li:hover .button-mask{
+	background-color: {{ bghcolor }};
+}
+{% endif %}
+
+{% if titlecolor %}
+.jsub-category li h4{
+	color: {{ titlecolor }};
+}
+{% endif %}
+
+{% if desccolor %}
+.jsub-category li .matter, .jsub-category li .matter p{
+	color: {{ desccolor }}
+}
+{% endif %}
+
+{% if viewallcolor %}
+.jsub-category li a.viewall {
+	color: {{ viewallcolor }}
+}
+{% endif %}
+</style>
+{% if carousel %}
+<script type="text/javascript"><!--
+$('.jsub-category ul').owlCarousel({
+	items: {{ carouselitems ? carouselitems : 4 }},
+	{% if carouselauto %}
+	autoPlay: 3000,
+	{% endif %}
+	{% if carouselnav %}
+	navigation: true,
+	navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
+	{% endif %}
+	pagination: {{ carouselpagi ? 'true' : 'false' }},
+});
+--></script>
+{% endif %}
+{% endif %}

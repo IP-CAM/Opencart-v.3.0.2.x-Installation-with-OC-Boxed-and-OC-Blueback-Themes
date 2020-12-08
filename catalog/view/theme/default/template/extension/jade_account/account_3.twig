@@ -1,0 +1,288 @@
+{{ header }}
+<div class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  {% if success %}
+  <div class="alert alert-success active"><i class="fa fa-check-circle"></i> {{ success }}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  {% endif %}
+  <div class="row">{{ column_left }}
+    {% if column_left %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <div class="jade_temp_3">
+        {% if heading_title or contact_status %}
+        <div class="row">
+          <div class="jd_top_bar">
+            <div class="col-sm-6 col-xs-5">
+              {% if heading_title %}
+                <i class="fa fa-bars" aria-hidden="true"></i> {{ heading_title }}
+              {% endif %}
+            </div>
+            <div class="col-sm-6 col-xs-7 jd_right">
+              {% if contact_status %}
+              <a href="" data-toggle="modal" data-target="#jcontact-account"><i class="fa fa-envelope"></i> {{ button_contact }}</a> |
+              {% endif %}
+              {{ myname }}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="row">
+          {% if account_widget.transaction or account_widget.wishlist %}
+          <div class="col-sm-4">
+            <div class="jd_large_cols">
+              <ul>
+                {% if account_widget.transaction %}
+                <li>
+                  <div class="jd_panel">
+                    <h2>{{ t_transactions }}</h2>
+                    <h4>{{ japanel_transactions }}</h4>
+                    <i class="fa fa-money"></i>
+                  </div>
+                  <a class="jd_info" href="{{ transactions_moreinfo }}">
+                    {{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </li>
+                {% endif %}
+
+                {% if account_widget.wishlist %}
+                <li>
+                  <div class="jd_panel">
+                    <h2>{{ t_wishlists }}</h2>
+                    <h4>{{ japanel_wishlists }}</h4>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                  </div>
+                  <a class="jd_info" href="{{ wishlists_moreinfo }}">{{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="col-sm-4">
+            <div class="jade_cus_profile">
+              {% if display_picture %}
+              <div class="image">
+                <a class="upload-mydp"><img src="{{ mydp }}"  title="{{ myname }}" alt="{{ myname }}" class="img-responsive"/></a>
+              </div>
+              {% endif %}
+              <div class="name">{{ myname }}</div>
+              <div class="email">{{ myemail }}</div>
+            </div>
+          </div>
+
+          {% if account_widget.reward_points or account_widget.orders or account_widget.downloads %}
+          <div class="col-sm-4">
+            <div class="jd_large_cols">
+              <ul>
+                {% if account_widget.reward_points %}
+                <li>
+                  <div class="jd_panel">
+                    <h2>{{ t_rewards }}</h2>
+                    <h4>{{ japanel_rewards }}</h4>
+                    <i class="fa fa-money"></i>
+                  </div>
+                  <a class="jd_info" href="{{ rewards_moreinfo }}">
+                    {{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </li>
+                {% endif %}
+
+                {% if account_widget.orders %}
+                <li>
+                  <div class="jd_panel">
+                    <h2>{{ t_orders }}</h2>
+                    <h4>{{ japanel_orders }}</h4>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                  </div>
+                  <a class="jd_info" href="{{ orders_moreinfo }}">{{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </li>
+                {% endif %}
+
+                {% if account_widget.downloads %}
+                <li>
+                  <div class="jd_panel">
+                    <h2>{{ t_downloads }}</h2>
+                    <h4>{{ japanel_downloads }}</h4>
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                  </div>
+                  <a class="jd_info" href="{{ downloads_moreinfo }}">{{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            {% if account_urls %}
+            <div class="jd_small_cols">
+              <ul class="jd_flex">
+                {% for account_url in account_urls %}
+                <li>
+                  <a href="{{ account_url.url }}" class="{{ account_url.class }}">
+                    <i class="fa {{ account_url.icon }}"></i>
+                    <span>{{ account_url.desc[languageid].name }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+
+            {% if affiliate_status and affiliate_links %}
+            {% if affiliate_title %}
+            <h3 class="jd_heading">{{ affiliate_title }}</h3>
+            {% endif %}
+            <div class="jd_small_cols">
+              <ul class="jd_flex">
+                {% for affiliate_link in affiliate_links %}
+                {% if affiliate_link.logintype == aff_usertype %}
+                <li>
+                  <a href="{{ affiliate_link.url }}" class="{{ affiliate_link.class }}">
+                    <i class="fa {{ affiliate_link.icon }}"></i>
+                    <span>{{ affiliate_link.desc[languageid].name }}</span>
+                  </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+
+            {% if show_recentorders %}
+            <div class="jd_latest_order">
+              <h3 class="jd_heading">{{ recent_orders }}</h3>
+              <div class="jd_inner_table">
+                <table class="jd_table">
+                  <thead>
+                    <tr>
+                      <th class="jleft">{{ col_order_id }}</th>
+                      <th class="jcenter">{{ col_products }}</th>
+                      <th class="jcenter">{{ col_status }}</th>
+                      <th class="jright">{{ col_total }}</th>
+                      <th class="jright">{{ col_date_added }}</th>
+                      <th class="jright">{{ col_action }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if orders %}
+                    {% for order in orders %}
+                    <tr>
+                      <td class="jleft">#{{ order.order_id }}</td>
+                      <td class="jcenter">{{ order.products }}</td>
+                      <td class="jcenter" >{{ order.status }}</td>
+                      <td class="jright" >{{ order.total }}</td>
+                      <td class="jright">{{ order.date_added }}</td>
+                      <td class="jright"><button type="button" onclick="location.href = '{{ order.view }}';" class="jd_btn_thm"><i class="fa fa-eye"></i></button></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td class="jcenter" colspan="6">{{ text_no_results }}</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% if product_status %}
+          <div class="col-sm-4">
+            <div class="jd_related_pr">
+              <h4 class="jd_heading">{{ offer_title }}</h4>
+              <ul>
+                {% for product in products %}
+                <li>
+                  <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title=""/></a></div>
+                  <div class="jd_caption">
+                    <h4 class="name"><a href="{{ product.href }}">{{ product.name }}</a></h4>
+                    <h4 class="price">
+                    {% if product.special %}
+                      <span style="text-decoration: line-through;">{{ product.price }}</span>
+                      {{ product.special }}
+                    {% else %}
+                      {{ product.price }}
+                    {% endif %}
+                    </h4>
+                    <p class="description">{{ product.description }}</p>
+                  </div>
+                  <div class="button-group">
+                    <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><i class="fa fa-shopping-cart"></i> <span class=" hidden-sm hidden-md">{{ button_cart }}</span></button>
+                    <button type="button" data-toggle="tooltip" title="" data-original-title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');" ><i class="fa fa-heart"></i></button>
+                    <button type="button" data-toggle="tooltip" title="" data-original-title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');" ><i class="fa fa-exchange"></i></button>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {{ column_right }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {{ content_bottom }}</div>
+    </div>
+
+<!-- /* Contact Admin Starts */ -->
+{{ contact_html }}
+<!-- /* Contact Admin Ends */ -->
+
+{% if dp_allow %}
+<script type="text/javascript"><!--
+$('.upload-mydp').on('click', function() {
+  var node = this;
+
+  $('#form-mydp').remove();
+
+  $('body').prepend('<form enctype="multipart/form-data" id="form-mydp" style="display: none;"><input type="file" name="file" /></form>');
+
+  $('#form-mydp input[name=\'file\']').trigger('click');
+
+  if (typeof timer != 'undefined') {
+      clearInterval(timer);
+  }
+
+  timer = setInterval(function() {
+    if ($('#form-mydp input[name=\'file\']').val() != '') {
+      clearInterval(timer);
+
+      $.ajax({
+        url: 'index.php?route=extension/jade_account/ChangeDP',
+        type: 'post',
+        dataType: 'json',
+        data: new FormData($('#form-mydp')[0]),
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function() {
+        },
+        complete: function() {
+        },
+        success: function(json) {
+          if (json['error']) {
+            alert(json['error']);
+          }
+
+          if (json['mydp_thumb']) {
+            $('.upload-mydp img').attr('src', json['mydp_thumb']);
+          }
+        }
+      });
+    }
+  }, 500);
+});
+//--></script>
+{% endif %}
+{{ color_style }}
+</div>
+{{ footer }}

@@ -1,0 +1,73 @@
+
+{% if (not shipping_required) %} 
+<div class="supercheckout-checkout-content" style="display:block">
+    <div class="permanent-warning" style="display: block;">No shipping required with these product(s).<img src="catalog/view/theme/{{ default_theme }}/image/close.png" alt="" class="close" /></div>
+</div>
+{% endif %} 
+{% if (error_warning) %} 
+    <div class="supercheckout-checkout-content" style="display:block;">
+        <div class="warning">{{ error_warning }}</div>
+    </div>
+{% endif %} 
+{% if (shipping_methods is defined and shipping_methods and shipping_required) %} 
+<table class="radio">
+    {% set all_shipping_code = [] %}
+     {% for shipping_method in shipping_methods %} 
+        {% for quote in shipping_method['quote'] %} 
+            {% set all_shipping_code = all_shipping_code|merge([quote['code']]) %}
+        {% endfor %}
+    {% endfor %}
+    {% if codeShipping not in all_shipping_code %}
+        {% set codeShipping='' %}
+    {% endif %}
+    
+    {% for key,shipping_method in shipping_methods %} 
+        {% if (not shipping_method['error']) %} 
+            {% if (settings['step']['shipping_method']['display_title'] is defined and settings['step']['shipping_method']['display_title']) %} 
+                <tr>
+                    <td colspan="3"><b>{{ settings['step']['shipping_method']['title'][key~'.'~key][language_id] is defined ? settings['step']['shipping_method']['title'][key~'.'~key][language_id] : shipping_method['title'] }}</b></td>
+                </tr>
+            {% endif %} 
+            {% for quote in shipping_method['quote'] %} 
+                <tr class="highlight">
+                    <td>{% if (quote['code'] == codeShipping or codeShipping == '' ) %} 
+                            {% set codeShipping = quote['code'] %} 
+                            <input type="radio" name="shipping_method" value="{{ quote['code'] }}" id="{{ quote['code'] }}" checked="checked" />
+                        {% else %} 
+                            <input type="radio" name="shipping_method" value="{{ quote['code'] }}" id="{{ quote['code'] }}" />
+                        {% endif %} 
+                    </td>
+                    <td>
+                        
+                        
+                        <label for="{{ quote['code'] }}">
+                            {% if (settings['shipping_logo']['default_option'] == 'imageonly' and settings['step']['shipping_method']['logo'][quote['code']] is not empty and shipping_logo[quote['code']]) %} 
+                                {{ '<a title="'~quote['title']~'"><img src="image/'~settings['step']['shipping_method']['logo'][quote['code']]~'" alt="'~quote['title']~'" style="max-width: 100px;max-height: 100px" /></a>' }}
+                                {{ '<label style="display: inline;" for="'~quote['code']~'">&nbsp&nbsp'~quote['text']~'</label>' }}
+                            {% elseif (settings['shipping_logo']['default_option'] == 'textwithimage' and settings['step']['shipping_method']['logo'][quote['code']] is not empty and shipping_logo[quote['code']]) %}
+
+                                {{ '<a title="'~quote['title']~'"><img src="image/'~settings['step']['shipping_method']['logo'][quote['code']]~'" alt="'~quote['title']~'" style="max-width: 100px;max-height: 100px" /></a><br>' }}
+                                {{ quote['title'] }}
+                                {{ '<label style="display: inline;" for="'~quote['code']~'">&nbsp&nbsp'~quote['text']~'</label>' }}
+                            {% else %} 
+                                {{ quote['title'] }}
+                                {{ '<label style="display: inline;" for="'~quote['code']~'">&nbsp&nbsp'~quote['text']~'</label>' }}
+                            {% endif %} 
+                        </label>
+                    </td>
+                </tr>
+            {% endfor %} 
+        {% else %} 
+            <tr>
+                <td colspan="3">
+                    <div class="error">{{ shipping_method['error'] }}</div>
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %} 
+</table>
+<br />
+{% endif %} 
+
+{# print_r($sessions); #}
+

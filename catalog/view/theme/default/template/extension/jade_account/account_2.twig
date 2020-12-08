@@ -1,0 +1,329 @@
+{{ header }}
+<div class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  {% if success %}
+  <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}</div>
+  {% endif %}
+  <div class="row">
+    {% if column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <div class="jade_temp_2">
+      {% if heading_title %}
+      <div class="row">
+        <div class="jd_top_bar">
+          <div class="col-sm-12 col-xs-12">
+            <i class="fa fa-bars" aria-hidden="true"></i> {{ heading_title }}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if any_widget %}
+      <div class="jd_large_cols">
+        <ul>
+          {% if account_widget.transaction %}
+          <li>
+            <div class="jd_panel">
+              <h2>{{ t_transactions }}</h2>
+              <h4>{{ japanel_transactions }}</h4>
+              <i class="fa fa-money"></i>
+            </div>
+            <a class="jd_info" href="{{ transactions_moreinfo }}">
+              {{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+          </li>
+          {% endif %}
+
+          {% if account_widget.wishlist %}
+          <li>
+            <div class="jd_panel">
+              <h2>{{ t_wishlists }}</h2>
+              <h4>{{ japanel_wishlists }}</h4>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            </div>
+            <a class="jd_info" href="{{ wishlists_moreinfo }}">{{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+          </li>
+          {% endif %}
+          {% if account_widget.reward_points %}
+          <li>
+            <div class="jd_panel">
+              <h2>{{ t_rewards }}</h2>
+              <h4>{{ japanel_rewards }}</h4>
+              <i class="fa fa-gift" aria-hidden="true"></i>
+            </div>
+            <a class="jd_info" href="{{ rewards_moreinfo }}">{{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+          </li>
+          {% endif %}
+
+          {% if account_widget.orders %}
+          <li>
+            <div class="jd_panel">
+              <h2>{{ t_orders }}</h2>
+              <h4>{{ japanel_orders }}</h4>
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </div>
+            <a class="jd_info" href="{{ orders_moreinfo }}">{{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+          </li>
+          {% endif %}
+
+          {% if account_widget.downloads %}
+          <li>
+            <div class="jd_panel">
+              <h2>{{ t_downloads }}</h2>
+              <h4>{{ japanel_downloads }}</h4>
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </div>
+            <a class="jd_info" href="{{ downloads_moreinfo }}">{{ text_moreinfo }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="jade_cus_profile">
+            {% if display_picture %}
+            <div class="image">
+              <a class="upload-mydp"><img src="{{ mydp }}" title="{{ myname }}" alt="{{ myname }}" class="img-responsive"/></a>
+            </div>
+            {% endif %}
+            <div class="name">{{ myname }}</div>
+            <div class="email">{{ myemail }}</div>
+          </div>
+          {% if contact_status %}
+          <div class="jade_contact">
+            <h3 class="jd_heading">{{ popup_title }}</h3>
+            <form>
+              <div class="form-group">
+                <input type="text" name="name" value="{{ myname }}" class="form-control" placeholder="{{ entry_name }}" />
+              </div>
+              <div class="form-group">
+                <input type="text" name="email" value="{{ myemail }}" class="form-control" placeholder="{{ entry_email }}" />
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="enquiry" rows="5" placeholder="{{ entry_enquiry }}"></textarea>
+              </div>
+              <button type="button" class="jd_btn_thm contact-submit">{{ submit_button_text }}</button>
+            </form>
+          </div>
+          {% endif %}
+          {{ column_left }}
+        </div>
+        <div class="col-sm-9">
+          {% if account_urls %}
+          <div class="jd_small_cols">
+            <ul>
+              {% for account_url in account_urls %}
+                <li>
+                  <a href="{{ account_url.url }}" class="{{ account_url.class }}">
+                    <i class="fa {{ account_url.icon }}"></i>
+                    <span>{{ account_url.desc[languageid].name }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          {% if affiliate_status and affiliate_links %}
+          {% if affiliate_title %}
+          <h3 class="jd_heading">{{ affiliate_title }}</h3>
+          {% endif %}
+          <div class="jd_small_cols">
+            <ul class="jd_flex">
+              {% for affiliate_link in affiliate_links %}
+              {% if affiliate_link.logintype == aff_usertype %}
+              <li>
+                <a href="{{ affiliate_link.url }}" class="{{ affiliate_link.class }}">
+                  <i class="fa {{ affiliate_link.icon }}"></i>
+                  <span>{{ affiliate_link.desc[languageid].name }}</span>
+                </a>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          {% if show_recentorders %}
+          <div class="jd_latest_order">
+            <h3 class="jd_heading">{{ recent_orders }}</h3>
+            <div class="jd_inner_table">
+              <table class="jd_table">
+                <thead>
+                  <tr>
+                    <th class="jleft">{{ col_order_id }}</th>
+                    <th class="jcenter">{{ col_products }}</th>
+                    <th class="jcenter">{{ col_status }}</th>
+                    <th class="jright">{{ col_total }}</th>
+                    <th class="jright">{{ col_date_added }}</th>
+                    <th class="jright">{{ col_action }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if orders %}
+                  {% for order in orders %}
+                  <tr>
+                    <td class="jleft">#{{ order.order_id }}</td>
+                    <td class="jcenter">{{ order.products }}</td>
+                    <td class="jcenter" >{{ order.status }}</td>
+                    <td class="jright" >{{ order.total }}</td>
+                    <td class="jright">{{ order.date_added }}</td>
+                    <td class="jright"><button type="button" onclick="location.href = '{{ order.view }}';" class="jd_btn_thm"><i class="fa fa-eye"></i></button></td>
+                  </tr>
+                  {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td class="jcenter" colspan="6">{{ text_no_results }}</td>
+                  </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if product_status %}
+          <div class="jd_related_pr">
+            <h4 class="jd_heading">{{ offer_title }}</h4>
+            <ul>
+              {% for product in products %}
+              <li>
+                <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" /></a></div>
+                <div class="jd_caption">
+                  <h4 class="name"><a href="{{ product.href }}">{{ product.name }}</a></h4>
+                  {% if product.price %}
+                  <h4 class="price">
+                    {% if product.special %}
+                    <span style="text-decoration: line-through;">{{ product.price }}</span>
+                    {{ product.special }}
+                    {% else %}
+                    {{ product.price }}
+                    {% endif %}
+                  </h4>
+                  {% endif %}
+                  <p class="description">{{ product.description }}</p>
+                </div>
+                <div class="button-group">
+                  <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><i class="fa fa-shopping-cart"></i> <span class=" hidden-sm hidden-md">{{ button_cart }}</span></button>
+                  <button type="button" data-toggle="tooltip" title="" data-original-title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');" ><i class="fa fa-heart"></i></button>
+                  <button type="button" data-toggle="tooltip" title="" data-original-title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');" ><i class="fa fa-exchange"></i></button>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {{ content_bottom }}</div>
+    {{ column_right }}</div>
+
+{% if dp_allow %}
+<script type="text/javascript"><!--
+$('.upload-mydp').on('click', function() {
+  var node = this;
+
+  $('#form-mydp').remove();
+
+  $('body').prepend('<form enctype="multipart/form-data" id="form-mydp" style="display: none;"><input type="file" name="file" /></form>');
+
+  $('#form-mydp input[name=\'file\']').trigger('click');
+
+  if (typeof timer != 'undefined') {
+      clearInterval(timer);
+  }
+
+  timer = setInterval(function() {
+    if ($('#form-mydp input[name=\'file\']').val() != '') {
+      clearInterval(timer);
+
+      $.ajax({
+        url: 'index.php?route=extension/jade_account/ChangeDP',
+        type: 'post',
+        dataType: 'json',
+        data: new FormData($('#form-mydp')[0]),
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function() {
+        },
+        complete: function() {
+        },
+        success: function(json) {
+          if (json['error']) {
+            alert(json['error']);
+          }
+
+          if (json['mydp_thumb']) {
+            $('.upload-mydp img').attr('src', json['mydp_thumb']);
+          }
+        }
+      });
+    }
+  }, 500);
+});
+//--></script>
+{% endif %}
+
+{% if contact_status %}
+<script type="text/javascript"><!--
+$('.contact-submit').click(function() {
+  $.ajax({
+    url: 'index.php?route=extension/jade_account/sendcontact',
+    dataType: 'json',
+    type: 'post',
+    data: $('.jade_contact input, .jade_contact textarea'),
+    beforeSend: function() {
+      $('.contact-submit').button('loading');
+    },
+    complete: function() {
+      $('.contact-submit').button('reset');
+    },
+    success: function(json) {
+      $('.jade_contact .alert-success, .alert-danger').remove();
+
+      $('.jade_contact .form-group').removeClass('has-error');
+
+      if(json['error']) {
+        if(json['error']['name']) {
+          $('.jade_contact input[name=\'name\']').after('<div style="padding: 3px 5px;"  class="alert-danger"><i class="fa fa-info-circle"></i> '+ json['error']['name'] +'</div>');
+        }
+
+        if(json['error']['email']) {
+          $('.jade_contact input[name=\'email\']').after('<div style="padding: 3px 5px;"  class="alert-danger"><i class="fa fa-info-circle"></i> '+ json['error']['email'] +'</div>');
+        }
+
+        if(json['error']['telephone']) {
+          $('.jade_contact input[name=\'telephone\']').after('<div style="padding: 3px 5px;"  class="alert-danger"><i class="fa fa-info-circle"></i> '+ json['error']['telephone'] +'</div>');
+        }
+
+        if(json['error']['enquiry']) {
+          $('.jade_contact textarea[name=\'enquiry\']').after('<div style="padding: 3px 5px;" class="alert-danger"><i class="fa fa-info-circle"></i> '+ json['error']['enquiry'] +'</div>');
+        }
+
+        $('.jade_contact .alert-danger').parent().addClass('has-error');
+      }
+
+      if(json['success']) {
+        $('.jade_contact form').prepend('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button> {{ success_message }}</div>');
+
+        $('.jade_contact input, .jade_contact textarea').val('');
+      }
+    }
+  });
+});
+//--></script>
+{% endif %}
+{{ color_style }}
+</div>
+{{ footer }}

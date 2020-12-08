@@ -1,0 +1,122 @@
+{{ header }}{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if error_warning %}
+			<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+		{% endif %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+			</div>
+			<div class="panel-body">
+				<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+					<!-- Emag Unu -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-emag_one_username">{{ entry_emag_one_username }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="module_stock_emag_cel_emag_one_username" value="{{ module_stock_emag_cel_emag_one_username }}" id="input-emag_one_username" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-emag_one_password">{{ entry_emag_one_password }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="module_stock_emag_cel_emag_one_password" value="{{ module_stock_emag_cel_emag_one_password }}" id="input-emag_one_password" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-emag_one_status">{{ entry_emag_one_status }}</label>
+						<div class="col-sm-10">
+							<select name="module_stock_emag_cel_emag_one_status" id="input-emag_one_status" class="form-control">
+								{% if module_stock_emag_cel_emag_one_status %}
+									<option value="1" selected="selected">{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group"></div>
+					<!-- Emag Doi -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-emag_two_username">{{ entry_emag_two_username }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="module_stock_emag_cel_emag_two_username" value="{{ module_stock_emag_cel_emag_two_username }}" id="input-emag_two_username" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-emag_two_password">{{ entry_emag_two_password }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="module_stock_emag_cel_emag_two_password" value="{{ module_stock_emag_cel_emag_two_password }}" id="input-emag_two_password" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-emag_two_status">{{ entry_emag_two_status }}</label>
+						<div class="col-sm-10">
+							<select name="module_stock_emag_cel_emag_two_status" id="input-emag_two_status" class="form-control">
+								{% if module_stock_emag_cel_emag_two_status %}
+									<option value="1" selected="selected">{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group"></div>
+					<!-- Cel -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cel_username">{{ entry_cel_username }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="module_stock_emag_cel_cel_username" value="{{ module_stock_emag_cel_cel_username }}" id="input-cel_username" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cel_password">{{ entry_cel_password }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="module_stock_emag_cel_cel_password" value="{{ module_stock_emag_cel_cel_password }}" id="input-cel_password" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cel_status">{{ entry_cel_status }}</label>
+						<div class="col-sm-10">
+							<select name="module_stock_emag_cel_cel_status" id="input-cel_status" class="form-control">
+								{% if module_stock_emag_cel_cel_status %}
+									<option value="1" selected="selected">{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cel_status"></label>
+						<div class="col-sm-10">
+						<a href="/index.php?route=extension/module/stock_emag_cel/emag_update_products" target="_blanck">https://www.pluscomputer.ro/index.php?route=extension/module/stock_emag_cel/emag_update_products</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{{ footer }}

@@ -1,0 +1,358 @@
+{{ header }}
+<link href="view/stylesheet/emadmin/emadminstyle.css" rel="stylesheet">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<link href="view/stylesheet/mm-stock/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<script>
+
+$("docuemnt").ready(function(){
+	
+	$("#st_status").click(function(){
+		
+		
+		var pstatus=$(".pstatus").prop("checked");
+		
+		if(pstatus==true)
+		{
+			
+			$("#stockstatus_on").hide();
+			$("#stockstatus_off").show();
+		}
+		else{
+			$("#stockstatus_on").show();
+			$("#stockstatus_off").hide();
+		}
+		
+	});
+	
+	
+});
+
+
+</script>
+
+<style>
+.mmddemoves{
+	background:#333;
+	padding:10px 10px;
+	font-weight:700;
+	color:#fff;
+
+	height:500px;
+	margin-top:10px;
+}
+.mmdemovv1{
+	/* background:gray; */	
+	padding: 10px;   
+    margin: 10px auto;
+	position:static; 
+	display:none;
+	/* width: 240px; height: 165px; */
+}
+.mmlogo{
+	margin-top: -31px;
+    margin-left: -26px;
+    float: left;
+}
+.emclose{
+	color:#fff;
+	opacity: 1;
+    font-size: 30px;
+	float:right;
+	background:transparent;
+}
+.page-header h1{
+	margin-left:10px;
+}
+.em-well-age{
+	  /*   border-left-color: #102565; */
+}
+</style>
+
+
+{{ column_left }}
+
+<div id="content" class="em-con">
+  <div class="page-header empage-header">
+    <div class="container-fluid">
+	<div class="mmlogo">
+		<img class="img-responsive" src="{{ mmlogo }}" style="height:105px; width:140px;">
+	</div>
+      <div class="pull-right">
+        <button type="submit" form="form-mmageverify" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+		{% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+ 
+  
+  <div class="container-fluid pdnone">
+	{% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+     
+      <div class="panel-body pdnone">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-mmageverify" class="form-horizontal">
+		
+		  <ul class="nav nav-tabs emnav-tabs">
+            <li class="active"><a href="#tab-setting" data-toggle="tab"><i class="fa fa-cog" aria-hidden="true"></i> {{ tab_setting }}</a></li>
+			<li><a href="#tab-emailtemp" data-toggle="tab"><i class="fa fa-map" aria-hidden="true"></i> {{ tab_email_temp }}</a></li>
+			<li><a href="#tab-support" data-toggle="tab"><i class="fa fa-life-ring" aria-hidden="true"></i> Support</a></li>
+          </ul>
+		  
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab-setting">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab-general" data-toggle="tab"><i class="fa fa-cogs" aria-hidden="true"></i>  General</a></li>			
+			</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab-general">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+			  {% if error_name %}
+              <div class="text-danger">{{ error_name }}</div>
+			  {% endif %}
+            </div>
+          </div>
+        
+		  		  
+		  	<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-stock_status">{{ entry_stock_status }}<span data-toggle="tooltip" title="" data-original-title="(This Option is Enable then others Shape are not Worked.)"></span></label>
+				<div class="col-sm-10">
+					 <div class="checkbox">
+					  <label>
+						<a href="#" id="st_status">
+							<input type="checkbox" data-toggle="toggle"  name="stock_status" id="input-stockstatus" class="form-control pstatus" value="1" {% if stock_status==1 %} checked {% endif %} >
+					   </a>	
+					  </label>
+					 </div>
+				</div>
+            </div>
+		
+		<div id="stockstatus_on" {% if stock_status!=1 %}	 style="display:none;" {% endif %}  >
+			
+			
+			{% for stock_key,stock_status_s in stock_statuses %}
+					
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-name"><?php //echo $entry_stock_name; ?></label>
+					<div class="col-sm-2">
+					  <input type="text" readonly name="stock_status_name" value="{{ stock_status_s.name }}" placeholder="{{ entry_stock_name }}" id="input-name" class="form-control" />
+					  <input type="hidden" name="stock_status_id[]" value="{{ stock_status_s.stock_status_id }}">
+					</div>
+					<label class="col-sm-2 control-label" for="input-name">{{ entry_stock_bgcolor }}</label>
+					<div class="col-sm-2">
+					 <div class="input-group colorpicker-component cp1">
+						<input type="text" name="stock_bgcolor[]" value="{{ stock_bgcolor[stock_key] }}" placeholder="{{ entry_stock_bgcolor }}" id="input-name" class="form-control cp1" />
+						<span class="input-group-addon"><i></i></span>
+					 </div>
+					</div>
+					<label class="col-sm-2 control-label" for="input-name">{{ entry_stock_fontcolor }}</label>
+					<div class="col-sm-2">
+					  <div class="input-group colorpicker-component cp1">
+						<input type="text" name="stock_fontcolor[]" value="{{ stock_fontcolor[stock_key] }}" placeholder="{{ entry_stock_fontcolor }}" id="input-name" class="form-control cp1" />
+						<span class="input-group-addon"><i></i></span>
+					  </div>
+					</div>
+			  </div>
+			  {% endfor %}	
+		</div>
+		
+		<div id="stockstatus_off" {% if stock_status==1 %}	 style="display:none;" {% endif %}>	
+			<div class="form-group required button_text">
+                <label class="col-sm-2 control-label" for="input-button_text"><span data-toggle="tooltip"  title="" data-original-title="URL on decline">{{ entry_button_text }}</span></label>
+					<div class="col-sm-10">
+					{% for language in languages %}
+							  <div class="input-group"> <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+								<input type="text" name="button_text[{{ language.language_id }}][name]" placeholder="Out Of Stock" value="{{ button_text[language.language_id] ? button_text[language.language_id].name }}" placeholder="{{ entry_name }}" class="form-control" />
+							  </div></br>
+							  
+					{% endfor %}	
+					</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-name">{{ entry_stock_bgcolor }}</label>
+				<div class="col-sm-10">
+				  
+				  
+				  <div class="input-group colorpicker-component cp1">
+					<input name="cart_bgcolor"  type="text" class="form-control cp1" value="{{ cart_bgcolor }}" placeholder="{{ entry_stock_bgcolor }}" id="input-name" />
+					<span class="input-group-addon"><i></i></span>
+				   </div>
+				  
+				</div>
+				
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-name">{{ entry_stock_fontcolor }}</label>
+				<div class="col-sm-10">
+				  
+				  
+				  
+				  <div class="input-group colorpicker-component cp1">
+					<input name="cart_fontcolor"  type="text" class="form-control cp1" value="{{ cart_fontcolor }}" placeholder="{{ entry_stock_fontcolor }}" id="input-name" />
+					
+					
+					<span class="input-group-addon"><i></i></span>
+				  </div>
+				  
+				</div>
+			</div>
+		</div>		
+			 
+			<div class="form-group">
+                <label class="col-sm-2 control-label">{{ entry_image }}</label>
+                <div class="col-sm-10"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail">
+					<img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+					<input type="hidden" name="image" value="{{ image }}" id="input-image" />
+                </div>
+            </div> 
+			 
+		  
+		   <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <select name="emstock_status" id="input-status" class="form-control">
+			  {% if emstock_status %}
+                <option value="1"  selected="selected">{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+				{% else %}
+                <option value="1">{{ text_enabled }}</option>
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+				{% endif %}
+              </select>
+            </div>
+          </div>
+          
+		</div>
+		
+				
+		</div>
+		
+		</div>
+		
+		<div class="tab-pane" id="tab-emailtemp">
+			
+			<div class="row">
+				<div class="col-sm-4">				
+					<div class="panel panel-default" style="border: 1px solid #dddddd;">
+						<div class="panel-heading">Short-Codes</div>
+						<div class="panel-body" style="line-height: 25px;">
+						
+							#	Customer Name - {name}<br/>
+							#	Customer Email - {email}<br/>
+							#	Customer Telephone - {telephone}<br/>
+							#	Product Name - {productname}<br/>
+							#	Product Link - {productlink}<br/>
+						
+						</div>
+					 </div>
+				</div>
+				<div class="col-sm-8">
+				
+				
+					<ul class="nav nav-tabs" id="emailtemp-language">
+						{% for language in languages %}
+						<li><a href="#emailtemp-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+						{% endfor %}	
+					</ul>
+				
+					<div class="tab-content">
+						
+						{% for language in languages %}
+						
+						<div class="tab-pane" id="emailtemp-language{{ language.language_id }}">
+													
+							<div class="form-group">								
+								<div class="col-sm-12">
+									<textarea name="emailtemp_description[{{ language.language_id }}][user_newticket]" placeholder="{{ entry_emailtemp_description }}" id="input-user_newticket{{ language.language_id }}" data-toggle="summernote" class="form-control">{{ emailtemp_description[language.language_id] ? emailtemp_description[language.language_id].user_newticket }}</textarea>
+								</div>
+							</div>							
+						  
+						</div>
+						{% endfor %}				
+						
+					</div>
+				</div>			
+			</div>
+		</div>
+		
+		 
+		<div class="tab-pane" id="tab-support"> 			
+			
+			<div class="text-center">
+				<div class="container-fluid">
+				<div class="row">
+				
+					<div class="col-sm-3 col-offset-sm-1 text-left">
+						<div class="form-group">
+							<a target="_blank" href="https://www.opencart.com/index.php?route=marketplace/extension&amp;filter_member="><button type="button" class="btn btn-primary"><i class="fa fa-bars tab-icon"></i> More Extensions</button></a>
+						</div>
+					
+						
+					
+						<div class="form-group">
+							<a target="_blank" href="#"><button type="button" class="btn btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy this Extension</button></a>
+						</div>
+					</div>
+					
+					<div class="col-sm-7">
+						<div class="well well-lg em-well-age">
+							<div class="row">
+								<div class="col-sm-3">
+									<h2><i class="fa fa-headphones tab-icon fa-3x"></i></h2>
+								</div>
+								<div class="col-sm-6">
+									<button type="button" class="btn btn-light"><h3><i class="fa fa-envelope"></i> modulesmarket@gmail.com</h3></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<br>
+						
+			</div>
+
+				
+		 </div>
+		
+		 
+		 
+		 
+         
+         </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  
+ 
+<script type="text/javascript" src="view/javascript/summernote/summernote.js"></script>
+<link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
+<script type="text/javascript" src="view/javascript/summernote/opencart.js"></script> 
+
+<script>
+	$(function() {
+		$('.cp1').colorpicker();
+	});
+</script>
+  <script type="text/javascript"><!--
+$('#emailtemp-language a:first').tab('show');
+//--></script>
+{{ footer }}
+<script src="view/stylesheet/mm-stock/dist/js/bootstrap-colorpicker.js"></script>
+ <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>

@@ -1,0 +1,331 @@
+{{ header }}
+{{ column_left }}
+<div id="content" class="full-height">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ __( 'Back to modules' )|striptags }}" class="btn btn-default" >
+					<i class="fa fa-reply"></i>
+				</a>
+				{{ update_button }}
+			</div>
+			<h1>{{ name }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+
+		{% if success %}
+		<div class="alert alert-success alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			{{ success }}
+		</div>
+		{% endif %}
+
+		{% if error_warning %}
+			{% for warning in error_warning %}
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<i class="fa fa-exclamation-circle"></i> {{ warning }}
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+			{% endfor %}
+		{% endif %}
+			
+		{{ compatibility }}
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-opencart fa-2x"></i> {{ __( 'Settings' ) }}</h3>
+			</div>
+
+			<div class="panel-body main-panel-body">
+
+					<ul class="nav nav-tabs">
+						<li class="active sway-able">
+							<a href="#tab-settings" data-toggle="tab">
+								<i class="fa fa-wrench fa-2x tab-icon"> </i>
+								{{ __( 'Settings' ) }}
+							</a>
+						</li>
+						<li class="sway-able">
+							<a href="#tab-concent" data-toggle="tab">
+								<i class="fa fa-check-circle-o fa-2x tab-icon"> </i>
+								{{ __( 'Consent' ) }}
+							</a>
+						</li>
+						<li class="sway-able">
+							<a href="#tab-request" data-toggle="tab">
+								<i class="fa fa-exchange tab-icon fa-2x"> </i>
+								{{ __( 'Requests' ) }}
+							</a>
+						</li>
+						{% if is_extended %}
+						 <li class="sway-able">
+							<a href="#tab-report" data-toggle="tab">
+								<i class="fa fa-envelope-o tab-icon fa-2x"> </i>
+								{{ __( 'Breach report' ) }}
+							</a>
+						</li>
+						 <li class="sway-able">
+							<a href="#tab-audit" data-toggle="tab">
+								<i class="fa fa-search tab-icon fa-2x"> </i>
+								{{ __( 'GDPR audit' ) }}
+								{% if high_severity > 0 %}
+									<i class="badge" style="background-color: #ff6060;">{{ high_severity }}</i>
+								{% endif %}
+							</a>
+						</li>
+						 <li class="sway-able">
+							<a href="#tab-cookie" data-toggle="tab">
+								<i class="fa fa-hand-o-up tab-icon fa-2x"> </i>
+								{{ __( 'Cookies' ) }}
+							</a>
+						</li>
+						<li class="sway-able">
+							<a href="#tab-support" data-toggle="tab">
+								<i class="fa fa-life-saver tab-icon"> </i>
+								{{ __( 'Support' ) }}
+							</a>
+						</li>
+						{% endif %}
+					</ul>
+				
+					<div class="tab-content">
+						<form id="form-main" action="{{ action }}" method="post">
+
+							<div class="tab-pane active extension-tab form-horizontal" id="tab-settings">
+								{{ status }}
+								{{ in_left_panel }}
+								{{ in_account }}
+								{{ in_footer }}
+								{{ in_header }}
+
+								{%  if is_extended %}
+								{{ order_expire }}
+								{{ download_font }}
+								{{ inline_translate }}
+								{% endif %}
+							</div>
+
+							<div class="tab-pane extension-tab" id="tab-concent">
+								<div class="panel-body main-panel-body">
+									{{ consent_info }}
+									<ul class="nav nav-tabs">
+										<li class="active sway-able">
+											<a href="#tab-terms" data-toggle="tab">
+												<i class="fa fa-book fa-2x tab-icon"> </i>
+												{{ __( 'Terms' ) }}
+											</a>
+										</li>
+										<li class="sway-able">
+											<a href="#tab-terms-log" data-toggle="tab">
+												<i class="fa fa-sort-alpha-desc fa-2x tab-icon"> </i>
+												{{ __( 'Acceptance log' ) }}
+											</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane extension-tab active" id="tab-terms">
+											{{ track_terms }}
+											<h3>{{ __( 'Changelog of terms' ) }}</h3>
+											{{ version_table }}
+										</div>
+										
+										<div class="tab-pane extension-tab" id="tab-terms-log">
+											{{ consent_table }}
+										</div>
+									</div>
+								</div>
+							</div>
+											
+							<div class="tab-pane form-horizontal" id="tab-request">
+								<div class="panel-body main-panel-body">
+									{{ request_info }}
+									<ul class="nav nav-tabs">
+										<li class="active sway-able">
+											<a href="#tab-request-setting" data-toggle="tab">
+												<i class="fa fa-wrench fa-2x tab-icon"> </i>
+												{{ __( 'Settings' ) }}
+											</a>
+										</li>
+										<li class="sway-able">
+											<a href="#tab-request-log" data-toggle="tab">
+												<i class="fa fa-sort-alpha-desc fa-2x tab-icon"> </i>
+												{{ __( 'Requests log' ) }}
+											</a>
+										</li>
+										<li class="sway-able">
+											<a href="#tab-request-template" data-toggle="tab">
+												<i class="fa fa-code fa-2x tab-icon"> </i>
+												{{ __( 'Email templates' ) }}
+											</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane extension-tab active" id="tab-request-setting">
+											{{ request_expire }}
+											{% if is_extended %}
+											{{request_mode }}
+											{{ reject_active }}
+											{{ anonymize_order }}
+											{{ regard_order_expiration }}
+											{{ add_captcha }}
+											{% endif %}
+										</div>
+										
+										<div class="tab-pane extension-tab" id="tab-request-log">
+											{{ request_table }}
+										</div>
+
+										<div class="tab-pane extension-tab" id="tab-request-template">
+											{{ data_request_confirmation_template }}
+
+											{{ data_stop_confirmation_template }}
+											{{ data_unstop_confirmation_template }}
+											{{ data_erase_confirmation_template }}
+											{{ data_withdraw_confirmation_template }}
+											
+											{{ data_request_reply_template }}
+											{{ data_block_done_template }}
+											{{ data_unblock_done_template }}
+											{{ data_erasure_done_template }}
+											{{ data_withdraw_done_template }}
+
+											{{ data_request_missed_template }}
+											{{ data_request_reject_template }}
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane form-horizontal" id="tab-report">
+								<div class="panel-body main-panel-body">
+									<ul class="nav nav-tabs">
+										<li class="active sway-able">
+											<a href="#tab-report-add" data-toggle="tab">
+												<i class="fa fa-pencil fa-2x tab-icon"> </i>
+												{{ __( 'Report' ) }}
+											</a>
+										</li>
+										<li class="sway-able">
+											<a href="#tab-report-authority" data-toggle="tab">
+												<i class="fa fa-institution fa-2x tab-icon"> </i>
+												{{ __( 'Authority' ) }}
+											</a>
+										</li>
+										<li class="sway-able">
+											<a href="#tab-report-customer" data-toggle="tab">
+												<i class="fa fa-users fa-2x tab-icon"> </i>
+												{{ __( 'Customers' ) }}
+											</a>
+										</li>
+										<li class="sway-able">
+											<a href="#tab-report-log" data-toggle="tab">
+												<i class="fa fa-sort-alpha-desc fa-2x tab-icon"> </i>
+												{{ __( 'Breaches Log' ) }}
+											</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane extension-tab active" id="tab-report-add">
+											{{ report_info }}
+											{{ report_fact }}
+											{{ report_effect }}
+											{{ report_remedy }}
+											{{ report_add }}
+										</div>
+
+										<div class="tab-pane extension-tab" id="tab-report-authority">
+											{{ breach_notification_authority_info }}
+											{{ breach_notification_authority_email }}
+											{{ breach_notification_authority_subject }}
+											{{ breach_notification_authority_text }}
+											{{ breach_notification_authority_button }}
+										</div>
+										
+										<div class="tab-pane extension-tab" id="tab-report-log">
+											{{ breach_table }}
+										</div>
+
+										<div class="tab-pane extension-tab" id="tab-report-customer">
+											{{ breach_notification_customer_info }}
+											{{ breach_notification_customer_email }}
+											{{ breach_notification_customer_subject }}
+											{{ breach_notification_customer_text }}
+											{{ breach_notification_customer_button }}
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane extension-tab form-horizontal" id="tab-audit">
+								{{ audit_info }}
+								{{ run_audit }}
+								{{ remove_missed_orders }}
+								{{ remove_expired_orders }}
+								{{ anonymize_unconsented_orders }}
+								{{ audit_table }}
+							</div>
+
+							<div class="tab-pane extension-tab form-horizontal" id="tab-cookie">
+								{{ cookie_info }}
+								{{ cookie_status }}
+								{{ consent_required_cookies }}
+								{{ cookie_width }}
+								{{ cookie_full_width }}
+								{{ cookie_bg_color }}
+								{{ cookie_button_color }}
+								{{ cookie_border_color }}
+								{{ cookie_text_color }}
+								{{ cookie_button_text_color }}
+								{{ cookie_border_width }}
+								{{ cookie_position }}
+								{{ cookie_header_text }}
+								{{ cookie_body_text }}
+								{{ cookie_reject_text }}
+								{{ cookie_accept_text }}
+								{{ cookie_policy }}
+							</div>
+
+	<!--  ********************************** Tab Support Start ************************************* -->
+							{{ support }}
+	<!-- *********************************** Tab Support End *************************************** -->
+						</form>
+					</div><!-- .tab-content -->
+
+			</div><!-- .panel-body -->
+		</div><!--.panel .panel-default -->
+	</div><!-- .container-fluid -->
+	<div class="legal">
+		<span>Adverti<b>k</b>on</span> &#169; 2015-{{ date( 'Y' ) }} All Rights Reserved.<br>Version {{ version }}
+	</div>
+</div><!-- #content -->
+
+<div class="modal fade" id="term-version-preview" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{#<h4 class="modal-title" id="close-term-version-preview">{{ __( 'Close' ) }}</h4>#}
+			</div>
+			<div class="modal-body">
+				<iframe id="term-version-preview-frame" style="width: 100%; height: 80vh;"></iframe>
+			</div>
+			{#<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>#}
+		</div>
+	</div>
+</div>
+
+<script>
+ADK.locale={{ locale }};
+</script>
+{{ footer }}

@@ -1,0 +1,157 @@
+
+<style>
+	.error{
+		color:red;
+	}
+</style>
+
+	<!-- Modal -->
+  <div class="modal fade" id="stockNotifyModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Stocul acestui produs este epuizat</h4>
+			<div style="color:red;">Completati rubricile de mai jos si va vom trimite o alerta pe mail atunci cand acesta revine in stoc.</div>
+			<div class="succes_mmstock"></div>
+        </div>
+        <div class="modal-body">
+          	<form action="" id="form-stock" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="proid" id="proid" value="">
+				<div class="form-group">
+				  <label for="email"><span class="required">*</span>Nume </label>
+				  <input type="text" class="form-control" id="mmstock-name" placeholder="Numele dvs." name="name">
+				  <span class="error" id="error_name"></span>
+				</div>
+				<div class="form-group">
+					  <label for="pwd"><span class="required">*</span>Email </label>
+					 <input type="text" class="form-control" id="mmstock-email" placeholder="Adresa de Email" name="email">
+					  <span class="error" id="error_email"></span>
+				</div>
+				
+				<div class="form-group">
+					  <label for="pwd"><span class="required">*</span> Telefon </label>
+					 <input type="text" class="form-control" id="mmstock-phone" placeholder="Numar de telefon" name="phone">
+					 <span class="error" id="error_phone"></span>
+				</div>
+				
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-12"><button type="button"  id="mm_required" class="btn btn-default pull-right add_review"><i class="fa fa-paper-plane"></i>&nbsp;Trimite</button></div>
+					</div>
+				</div>
+			</form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Inchide</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  <script>
+		
+		
+		
+	$(document).ready(function(){
+		
+		$("#mm_required").click(function(){
+			
+			var data = new FormData($('#form-stock')[0]);
+			var name=$("#mmstock-name").val();	
+			var email=$("#mmstock-email").val();
+			var phone=$("#mmstock-phone").val();
+			var atpos = email.indexOf("@");
+            var dotpos = email.lastIndexOf(".");
+			
+			if(name=="" || phone=="" || email=="" || atpos < 1 || ( dotpos - atpos < 2 ))
+			{
+				if(name=="")
+				{
+					
+					$("#mmstock-name").css("border-color","red");
+					$("#error_name").html("Introdu un nume");
+				}
+				else
+				{
+					
+					$("#mmstock-name").css("border-color","");
+					$("#error_name").html("");
+				}
+				if(phone=="")
+				{
+					
+					$("#mmstock-phone").css("border-color","red");
+					$("#error_phone").html("Introdu un numar de telefon");
+				}
+				else
+				{
+					
+					$("#mmstock-phone").css("border-color","");
+					$("#error_phone").html("");
+				}
+				if(email=="")
+				{
+					$("#mmstock-email").css("border-color","red");
+					$("#error_email").html("Introdu op adresa de Email");
+				}
+				else
+				{
+					if (atpos < 1 || ( dotpos - atpos < 2 )) {
+						
+						$("#mmstock-email").css("border-color","red");
+						$("#error_email").html("Introdu o adresa de Email corecta");
+					}
+					else{
+							$("#mmstock-email").css("border-color","");
+							$("#error_email").html("");
+						}						
+				}
+				return false;	
+			}
+			else{
+				
+				 $.ajax({
+						 data: data,
+						 type: "post",
+						 url: "index.php?route=mmstock/mmstock/email_notification",
+						 cache: false,
+						 contentType: false,
+						 processData: false,
+						 success: function(data){
+							  
+							  
+							 $("#mmstock-name").val("");
+							 $("#mmstock-email").val("");
+							 $("#mmstock-phone").val("");
+							 $("#mmstock-name").css("border-color","");
+							 $("#error_name").html("");
+							 $("#mmstock-email").css("border-color","");
+							 $("#error_email").html("");
+							 $("#mmstock-phone").css("border-color","");
+							 $("#error_phone").html("");
+							
+							// $("#form-review")[0].reset();
+							 $(".succes_mmstock").html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Alerta a fost inregistrata. Va vom trimite un mail atunci când produsul revine in stoc. </div>'); 
+							
+						 }
+				}); 
+				
+				
+			}
+		});
+		
+	});
+
+		
+		
+	 function pro_id(id)
+			{
+				$("#proid").val(id);
+			} 
+			
+</script>

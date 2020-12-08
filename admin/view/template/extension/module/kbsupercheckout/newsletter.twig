@@ -1,0 +1,168 @@
+{{ header }}{{ column_left }} 
+<!-- Main Container Fluid -->
+<div id="content" class="bootstrap">
+    <script type="text/javascript" src="view/javascript/supercheckout/js/velovalidation.js"></script>
+    <link rel="stylesheet" href="view/javascript/supercheckout/css/kbsupercheckout.css">
+    <script type="text/javascript">
+        var error_invalid_key = '{{ text_mailchimp_invalid_key }}';
+        velovalidation.setErrorLanguage({
+            empty_field: '{{ error_empty_field }}',
+        });
+    </script>
+    <script type="text/javascript" src="view/javascript/supercheckout/js/kbsupercheckout.js" ></script>
+    <div id="velsof_plugin">
+        <div class="page-header">
+            <div class="container-fluid">
+                <div class="pull-right">
+                    <button type="submit" id="save-button" form="form-newsletter" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                    <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+                <h1>{{ heading_title }}</h1>
+                <ul class="breadcrumb">
+                    {% for breadcrumb in breadcrumbs %} 
+                            <li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+                    {% endfor %} 
+                </ul>
+                {% if (success) %} 
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }} 
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+                {% endif %} 
+                <div id="error_message"></div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            {% if (error_warning) %} 
+            <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }} 
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            {% endif %} 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ store_switcher }} 
+                    <h3 class="panel-title"><i class="fa fa-envelope"></i> {{ supercheckout_text_mailchimp }}</h3>
+                </div>
+                <div class="panel-body">
+                    <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-newsletter" class="form-horizontal">
+                    <!--<form action="" method="post" enctype="multipart/form-data" id="form">-->
+                        {{ tabs }} 
+                        <div class="layout">
+                            <div class="tab-content">
+
+                                <!---------------------------------- Payment Methods ---------------------------------->
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ supercheckout_text_mailchimp_enable_tooltip }}">{{ supercheckout_text_mailchimp_enable }}</span></label>
+                                        <input type="hidden" value="0" name="supercheckout[mailchimp][enable]" />
+                                        <div class="col-sm-1">
+                                            <div class="onoffswitch" style="min-width: 90px">
+                                                <input type="checkbox" name="supercheckout[mailchimp][enable]" value="1" class="onoffswitch-checkbox" id="mailchimp_enable"
+                                                       {% if (supercheckout['mailchimp']['enable'] is defined and supercheckout['mailchimp']['enable'] == 1) %} 
+ {{ 'checked' }}
+ {% endif %}>
+                                                <label class="onoffswitch-label" for="mailchimp_enable">
+                                                    <span class="onoffswitch-inner">
+                                                        <span class="onoffswitch-active"><span class="onoffswitch-switch">{{ text_yes }}</span></span>
+                                                        <span class="onoffswitch-inactive"><span class="onoffswitch-switch">{{ text_no }}</span></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ supercheckout_text_mailchimp_api_tooltip }}">{{ supercheckout_text_mailchimp_api }}</span></label>
+                                        <div class="col-sm-10">
+                                            <input name="supercheckout[mailchimp][api]" id="mailchimp_api" value="{{ supercheckout['mailchimp']['api'] }}" class="form-control">
+                                            <button type="button" id="mailchimp_list_button" class="btn btn-primary">{{ text_get_list }}</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ supercheckout_text_mailchimp_list_tooltip }}">{{ supercheckout_text_mailchimp_list }}</span></label>
+                                        <div class="col-sm-10" id="mailchimp_list_div">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- layout-->
+                    </form>
+                </div>
+                    <!-- content tabs-->
+            </div>
+                <!-- box -->
+        </div>
+    </div>
+</div> <!-- row -->
+<script type="text/javascript">
+    $(document).ready(function (){
+        var key = $('#mailchimp_api').val();
+        var error_list = '{{ text_mailchimp_empty_list }}';
+        var error_invalid_key = '{{ text_mailchimp_invalid_key }}';
+        var regex = /-/;
+        $.ajax({
+            type: "GET",
+            url: '{{ mailchimp_list_url }}',
+            data: 'key=' + key,
+            dataType: 'json',
+            beforeSend: function () {
+                $("#mailchimp_list").html('');
+            },
+            success: function (json) {
+                var html = '';
+                if(json.flag == 0){
+                    html = '<span style="color: red">' + error_list + '</span>';
+                }else{
+                    html += '<select name="supercheckout[mailchimp][list]"';
+                    html += 'id="mailchimp_list" class="form-control">';
+                    for (i in json.data['lists'])
+                        {
+                            if ('{{ supercheckout['mailchimp']['list'] }}' == json.data['lists'][i]['id'])
+                                html += '<option value="' + json.data['lists'][i]['id'] + '" selected>' + json.data['lists'][i]['name'] + '</option>';
+                            else
+                                html += '<option value="' + json.data['lists'][i]['id'] + '">' + json.data['lists'][i]['name'] + '</option>';
+                        }
+                    html += '</select>';
+                }
+                $('#mailchimp_list_div').html(html)
+            }
+        });
+        $('#mailchimp_list_button').click(function(){
+            $('.text-danger').remove();
+            var key = $('#mailchimp_api').val();
+            if(regex.test($('#mailchimp_api').val())){
+                $.ajax({
+                    type: "GET",
+                    url: '{{ mailchimp_list_url }}',
+                    data: 'key=' + key,
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $("#mailchimp_list").html('');
+                    },
+                    success: function (json) {
+                        var html = '';
+                        if(json.flag == 0){
+                            html = '<span style="color: red">' + error_list + '</span>';
+                        }else{
+                            html += '<select name="supercheckout[mailchimp][list]"';
+                            html += 'id="mailchimp_list" class="form-control">';
+                            for (i in json.data['lists'])
+                            {
+                                if ('{{ supercheckout['mailchimp']['list'] }}' == json.data['lists'][i]['id'])
+                                    html += '<option value="' + json.data['lists'][i]['id'] + '" selected>' + json.data['lists'][i]['name'] + '</option>';
+                                else
+                                    html += '<option value="' + json.data['lists'][i]['id'] + '">' + json.data['lists'][i]['name'] + '</option>';
+                            }
+                            html += '</select>';
+                        }
+                        $('#mailchimp_list_div').html(html)
+                    }
+                });
+            }else{
+                $("#mailchimp_list").html('');
+                $('#mailchimp_list_button').after("<div class='text-danger'>" + error_invalid_key + "</div>");
+            }
+        });
+    });
+</script>
+{{ footer }} 
+<!-- // Main Container Fluid END -->
+<!-- // for themer -->

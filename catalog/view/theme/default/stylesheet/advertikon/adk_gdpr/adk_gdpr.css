@@ -1,0 +1,149 @@
+.adk-icon {
+	width: 80px;
+	height: 80px;
+	background-image: url( '/image/catalog/advertikon/icon.png' );
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.adk-get-data .adk-icon {
+	background-position: -30px -150px;
+}
+
+.adk-edit-data .adk-icon {
+	background-position: -800px -710px;
+}
+
+.adk-erase-data .adk-icon {
+	background-position: -510px -485px;
+}
+
+.adk-restrict-data .adk-icon {
+	background-position: -125px -375px;
+}
+
+.adk-unrestrict-data .adk-icon {
+	background-position: -220px -375px;
+}
+
+.adk-withdraw-data .adk-icon {
+	background-position: -700px -485px;
+}
+
+.adk-control {
+	border: solid 1px black;
+    padding: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.adk-control:active {
+	top: 5px;
+	box-shadow: 2px 2px 2px black inset;
+}
+
+.adk-description {
+	display: inline-block;
+    width: calc(100% - 150px);
+    vertical-align: middle;
+}
+
+.adk-description h3 {
+	margin-top: 0;
+}
+
+.adk-page-information {
+	font-size: 1.2em;
+}
+
+.adk-controls {
+	margin-top: 20px;
+}
+
+.adk-form {
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 80%;
+    max-width: 80vw;
+    background-color: white;
+    border: solid 1px black;
+    padding: 10px;
+    box-shadow: 5px 5px 5px black;
+    display: none;
+    z-index:  10;
+}
+
+.adk-form label {
+	width: 100%;
+}
+
+.adk-form-information {
+	display: block;
+	margin: 10px 0;
+}
+
+.adk-message {
+	border: solid 1px black;
+	padding: 20px;
+	border-radius: 6px;
+	font-weight: bold;
+	display: none;
+}
+
+.adk-error {
+	background-color: red;
+	color: white;
+}
+
+.adk-ok {
+	background-color: #4eb34e;
+	color: black;
+}
+
+.adk-cookie-wrapper {
+	position: fixed;
+	z-index: 100000;
+	width: 100%;
+	display: none;
+}
+
+.adk-cookie-banner {
+	border-style: solid;
+	margin: 0 auto;
+	padding: 5px;
+}
+
+.adk-cookie-header {
+	text-align: center;
+}
+
+.adk-cookie-header h3 {
+	margin-top: 0;
+}
+
+.adk-cookie-body {
+	padding: 10px 0;
+}
+
+.adk-cookie-body a, .adk-cookie-body a:visited, .adk-cookie-body a:hover {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.adk-cookie-button {
+	display: inline-block;
+	padding :10px;
+	margin-right: 10px;
+}
+
+
+
+
+
+

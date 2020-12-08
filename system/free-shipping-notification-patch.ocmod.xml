@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>Free Shipping Notification</name>
+	<code>Free Shipping Notification</code>
+	<version>1.1</version>
+	<author>DigitCart</author>
+	<link>http://www.digitcart.ir</link>
+	<file path="catalog/controller/supercheckout/supercheckout.php">
+		<operation>
+			<search index="0"><![CDATA[//Adding script to the page]]></search>
+			<add position="after"><![CDATA[
+				if ($this->config->get('module_digitcart_shipping_alert_status') && $this->config->get('shipping_free_status') && $this->config->get('shipping_free_total') && !$this->config->get('shipping_free_geo_zone_id')) {
+					$dc_sub_total = $this->cart->getSubTotal();
+					$dc_free_total = (float)$this->config->get('shipping_free_total');
+					if ($dc_sub_total > 0 && $dc_free_total > $dc_sub_total) {
+						$dc_remaining_amount = $dc_free_total - $dc_sub_total;
+						$dc_config_message = $this->config->get('module_digitcart_shipping_alert_message');
+						$dc_language_id = $this->config->get('config_language_id');
+						if (!empty($dc_config_message[$dc_language_id])) {
+							$dc_message = html_entity_decode($dc_config_message[$dc_language_id], ENT_QUOTES, 'UTF-8');
+						} else {
+							$dc_message = $this->language->get('text_dc_free_shipping');
+						}
+						$data['dc_alert'] = $this->config->get('module_digitcart_shipping_alert_alert');
+						$data['dc_shipping_notification'] = str_replace('[amount]', $this->currency->format($dc_remaining_amount, $this->session->data['currency']), $dc_message);
+					}
+				}
+			]]></add>
+		</operation>
+	</file>
+
+	<file path="catalog/view/theme/default/template/supercheckout/supercheckout.twig">
+		<operation>
+			<search><![CDATA[<div id="content">]]></search>
+			<add position="before"><![CDATA[
+				{% if dc_shipping_notification is defined %}
+					<div id="dc-free-shipping-alert" class="alert alert-{{ dc_alert }}"><i class="fa fa-check-circle"></i> {{ dc_shipping_notification }}
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					</div>
+				{% endif %}
+			]]></add>
+		</operation>
+	</file>
+</modification>

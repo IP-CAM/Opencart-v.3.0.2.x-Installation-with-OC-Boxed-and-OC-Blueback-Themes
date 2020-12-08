@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>Stock Emag Cel</name>
+	<code>stock_emag_cel</code>
+	<version>1.0</version>
+	<author>Crinel</author>
+	<link>http://www.opencart.com</link>
+	
+	<file path="admin/language/ro-ro/catalog/product.php">
+		<operation>
+			<search><![CDATA[
+				$_['entry_recurring']        = 'Abonament';
+			]]></search>
+			<add position="after"><![CDATA[
+				$_['tab_marketplace'] = 'Marketplace';
+				$_['entry_emag_one'] = 'Emag Unu';
+				$_['entry_emag_two'] = 'Emag Doi';
+				$_['entry_cel'] = 'Cel';
+			]]></add>
+		</operation>
+	</file>
+	
+	<file path="admin/view/template/catalog/product_form.twig">
+		<operation>
+			<search><![CDATA[
+				<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>
+			]]></search>
+			<add position="after"><![CDATA[
+				<li><a href="#tab-marketplace" data-toggle="tab" data-option="{{ product_options|length }}">{{ tab_marketplace }}</a></li>
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				<div class="tab-pane" id="tab-design">
+			]]></search>
+			<add position="before"><![CDATA[
+			{% if product_options|length == 0 %}
+				<div class="tab-pane" id="tab-marketplace">
+						<div class="form-group">
+	            <label class="col-sm-2 control-label" for="input-emag-one">{{ entry_emag_one }}</span></label>
+	            <div class="col-sm-10">
+	              <input type="text" name="emag_one" value="{{ emag_one }}" placeholder="{{ entry_emag_one }}" id="input-emag-one" class="form-control" />
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="col-sm-2 control-label" for="input-emag-two">{{ entry_emag_two }}</span></label>
+	            <div class="col-sm-10">
+	              <input type="text" name="emag_two" value="{{ emag_two }}" placeholder="{{ entry_emag_two }}" id="input-emag-two" class="form-control" />
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="col-sm-2 control-label" for="input-cel">{{ entry_cel }}</span></label>
+	            <div class="col-sm-10">
+	              <input type="text" name="cel" value="{{ cel }}" placeholder="{{ entry_cel }}" id="input-cel" class="form-control" />
+	            </div>
+	          </div>
+				</div>
+				{% endif %}
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search index="0"><![CDATA[
+				<td class="text-left">{{ entry_option_value }}</td>
+			]]></search>
+			<add position="after"><![CDATA[
+				<td class="text-left hide">{{ entry_emag_one }}</td>
+				<td class="text-left hide">{{ entry_emag_two }}</td>
+				<td class="text-left hide">{{ entry_cel }}</td>
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				<td class="text-right"><input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][quantity]" value="{{ product_option_value.quantity }}" placeholder="{{ entry_quantity }}" class="form-control" /></td>
+			]]></search>
+			<add position="before"><![CDATA[
+				<td class="text-left hide"><input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][emag_one]" value="{{ product_option_value.emag_one }}" placeholder="{{ entry_emag_one }}" class="form-control" /></td>
+				<td class="text-left hide"><input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][emag_two]" value="{{ product_option_value.emag_two }}" placeholder="{{ entry_emag_two }}" class="form-control" /></td>
+				<td class="text-left hide"><input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][cel]" value="{{ product_option_value.cel }}" placeholder="{{ entry_cel }}" class="form-control" /></td>
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				html += '        <td class="text-left">{{ entry_option_value }}</td>';
+			]]></search>
+			<add position="after"><![CDATA[
+				html += '        <td class="text-left hide">{{ entry_emag_one }}</td>';
+				html += '        <td class="text-left hide">{{ entry_emag_two }}</td>';
+				html += '        <td class="text-left hide">{{ entry_cel }}</td>';
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				html += '  <td class="text-right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][quantity]" value="" placeholder="{{ entry_quantity }}" class="form-control" /></td>';
+			]]></search>
+			<add position="before"><![CDATA[
+				html += '  <td class="text-right hide"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][emag_one]" value="" placeholder="{{ entry_emag_one }}" class="form-control" /></td>';
+				html += '  <td class="text-right hide"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][emag_two]" value="" placeholder="{{ entry_emag_two }}" class="form-control" /></td>';
+				html += '  <td class="text-right hide"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][cel]" value="" placeholder="{{ entry_cel }}" class="form-control" /></td>';
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				$('input[name=\'manufacturer\']').autocomplete({
+			]]></search>
+			<add position="before"><![CDATA[
+				$('body').on('click', 'a[href="#tab-marketplace"]', function() {
+					if ($(this).data('option') == 0) return true;
+					
+					$('#input-option').closest('li').addClass('hide');
+					$('select[id^=input-required]').closest('.form-group').addClass('hide');
+					$('table[id^=option-value]').find('tfoot').addClass('hide');
+					$('table[id^=option-value] thead tr td').removeClass('hide');
+					$('table[id^=option-value] thead tr td').not(":nth-child(1)").not(":nth-child(2)").not(":nth-child(3)").not(":nth-child(4)").addClass('hide');
+					$('table[id^=option-value] tbody tr td').removeClass('hide');
+					$('table[id^=option-value] tbody tr td').not(":nth-child(1)").not(":nth-child(2)").not(":nth-child(3)").not(":nth-child(4)").addClass('hide');
+					$('#form-product > .tab-content > .tab-pane').removeClass('active');
+					$('#tab-option').addClass('active');
+				});
+				
+				$('body').on('click', 'a[href="#tab-option"]', function() {
+					if ($('a[href="#tab-marketplace"]').data('option') == 0) return true;
+					
+					$('#input-option').closest('li').removeClass('hide');
+					$('select[id^=input-required]').closest('.form-group').removeClass('hide');
+					$('table[id^=option-value]').find('tfoot').removeClass('hide');
+					$('table[id^=option-value] thead tr td').addClass('hide');
+					$('table[id^=option-value] thead tr td').not(":nth-child(2)").not(":nth-child(3)").not(":nth-child(4)").removeClass('hide');
+					$('table[id^=option-value] tbody tr td').addClass('hide');
+					$('table[id^=option-value] tbody tr td').not(":nth-child(2)").not(":nth-child(3)").not(":nth-child(4)").removeClass('hide');
+					
+				});
+			]]></add>
+		</operation>
+		
+	</file>
+	
+	<file path="admin/controller/catalog/product.php">
+		<operation>
+			<search><![CDATA[
+				if (isset($this->request->post['location'])) {
+			]]></search>
+			<add position="before"><![CDATA[
+				if (isset($this->request->post['emag_one'])) {
+					$data['emag_one'] = $this->request->post['emag_one'];
+				} elseif (!empty($product_info)) {
+					$data['emag_one'] = $product_info['emag_one'];
+				} else {
+					$data['emag_one'] = '';
+				}
+				if (isset($this->request->post['emag_two'])) {
+					$data['emag_two'] = $this->request->post['emag_two'];
+				} elseif (!empty($product_info)) {
+					$data['emag_two'] = $product_info['emag_two'];
+				} else {
+					$data['emag_two'] = '';
+				}
+				if (isset($this->request->post['cel'])) {
+					$data['cel'] = $this->request->post['cel'];
+				} elseif (!empty($product_info)) {
+					$data['cel'] = $product_info['cel'];
+				} else {
+					$data['cel'] = '';
+				}
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				'weight'                  => $product_option_value['weight'],
+			]]></search>
+			<add position="after"><![CDATA[
+				'emag_one'                  => $product_option_value['emag_one'],
+				'emag_two'                  => $product_option_value['emag_two'],
+				'cel'                  => $product_option_value['cel'],
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				$this->model_catalog_product->addProduct($this->request->post);
+			]]></search>
+			<add position="replace"><![CDATA[
+				$product_id = $this->model_catalog_product->addProduct($this->request->post);
+				
+				if (isset($this->request->post['product_option']) && count($this->request->post['product_option']) > 0) {
+					require_once DIR_CATALOG . 'controller/extension/module/stock_emag_cel.php';
+					$api_options = array();
+					foreach ($this->request->post['product_option'] as $option) {
+						foreach ($option['product_option_value'] as $option_value) {
+							$query = $this->db->query("SELECT product_option_value_id FROM " . DB_PREFIX.  "product_option_value WHERE product_id = '". (int)$this->request->get['product_id'] ."' AND option_id = '" . $option['option_id'] . "' AND option_value_id = '". (int)$option_value['option_value_id'] ."' ");
+							if (count($query->row) > 0) {
+								$api_options[] = $query->row['product_option_value_id'];
+							}
+						}
+					}
+					if (count($api_options) > 0) {
+						$stock_emag_cel = new ControllerExtensionModuleStockEmagCel($this->registry);
+						$stock_emag_cel->emag_product_stock(array('options' => $api_options));
+						$stock_emag_cel->cel_product_stock(array('options' => $api_options));
+					}
+				} else {
+					require_once DIR_CATALOG . 'controller/extension/module/stock_emag_cel.php';
+					if (!empty($this->request->post['emag_one']) || !empty($this->request->post['emag_two'])) {
+						$stock_emag_cel = new ControllerExtensionModuleStockEmagCel($this->registry);
+						$stock_emag_cel->emag_product_stock(array('products' => array($this->request->get['product_id'])));
+					}
+					if (!empty($this->request->post['cel'])) {
+						$stock_emag_cel->cel_product_stock(array('products' => array($this->request->get['product_id'])));
+					}
+				}
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+			]]></search>
+			<add position="after"><![CDATA[
+				if (isset($this->request->post['product_option']) && count($this->request->post['product_option']) > 0) {
+					require_once DIR_CATALOG . 'controller/extension/module/stock_emag_cel.php';
+					$api_options = array();
+					foreach ($this->request->post['product_option'] as $option) {
+						foreach ($option['product_option_value'] as $option_value) {
+							$query = $this->db->query("SELECT product_option_value_id FROM " . DB_PREFIX.  "product_option_value WHERE product_id = '". (int)$this->request->get['product_id'] ."' AND option_id = '" . $option['option_id'] . "' AND option_value_id = '". (int)$option_value['option_value_id'] ."' ");
+							if (count($query->row) > 0) {
+								$api_options[] = $query->row['product_option_value_id'];
+							}
+						}
+					}
+					if (count($api_options) > 0) {
+						$stock_emag_cel = new ControllerExtensionModuleStockEmagCel($this->registry);
+						$stock_emag_cel->emag_product_stock(array('options' => $api_options));
+						$stock_emag_cel->cel_product_stock(array('options' => $api_options));
+					}
+				} else {
+					require_once DIR_CATALOG . 'controller/extension/module/stock_emag_cel.php';
+					if (!empty($this->request->post['emag_one']) || !empty($this->request->post['emag_two'])) {
+						$stock_emag_cel = new ControllerExtensionModuleStockEmagCel($this->registry);
+						$stock_emag_cel->emag_product_stock(array('products' => array($this->request->get['product_id'])));
+					}
+					if (!empty($this->request->post['cel'])) {
+						$stock_emag_cel->cel_product_stock(array('products' => array($this->request->get['product_id'])));
+					}
+				}
+			]]></add>
+		</operation>
+	</file>
+	
+	<file path="admin/model/catalog/product.php">
+		<operation>
+			<search><![CDATA[
+				if (isset($data['image'])) {
+			]]></search>
+			<add position="before"><![CDATA[
+				$this->db->query("UPDATE " . DB_PREFIX . "product SET emag_one = '" . $this->db->escape($data['emag_one']) . "', emag_two = '" . $this->db->escape($data['emag_two']) . "', cel = '" . $this->db->escape($data['cel']) . "' WHERE product_id = '" . (int)$product_id . "'");
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				'weight'                  => $product_option_value['weight'],
+			]]></search>
+			<add position="after"><![CDATA[
+				'emag_one'                  => $product_option_value['emag_one'],
+				'emag_two'                  => $product_option_value['emag_two'],
+				'cel'                  => $product_option_value['cel'],
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");
+			]]></search>
+			<add position="replace"><![CDATA[
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "', emag_one = '" . $this->db->escape($product_option_value['emag_one']) . "', emag_two = '" . $this->db->escape($product_option_value['emag_two']) . "', cel = '" . $this->db->escape($product_option_value['cel']) . "'");
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search><![CDATA[
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_value_id = '" . (int)$product_option_value['product_option_value_id'] . "', product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");
+			]]></search>
+			<add position="replace"><![CDATA[
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_value_id = '" . (int)$product_option_value['product_option_value_id'] . "', product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "', emag_one = '" . $this->db->escape($product_option_value['emag_one']) . "', emag_two = '" . $this->db->escape($product_option_value['emag_two']) . "', cel = '" . $this->db->escape($product_option_value['cel']) . "'");
+			]]></add>
+		</operation>
+	</file>
+	
+<!--	<file path="catalog/controller/api/order.php">-->
+<!--		<operation>-->
+<!--			<search><![CDATA[-->
+<!--				$this->model_checkout_order->addOrderHistory($json['order_id'], $order_status_id);-->
+<!--			]]></search>-->
+<!--			<add position="after"><![CDATA[-->
+<!--				$this->load->controller('extension/module/stock_emag_cel/emag_order_stock', array('order_id' => $json['order_id']));-->
+<!--				$this->load->controller('extension/module/stock_emag_cel/cel_order_stock', array('order_id' => $json['order_id']));-->
+<!--			]]></add>-->
+<!--		</operation>-->
+<!--		-->
+<!--		<operation>-->
+<!--			<search><![CDATA[-->
+<!--				$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify'], $this->request->post['override']);-->
+<!--			]]></search>-->
+<!--			<add position="after"><![CDATA[-->
+<!--				$this->load->controller('extension/module/stock_emag_cel/emag_order_stock', array('order_id' => $order_id));-->
+<!--				$this->load->controller('extension/module/stock_emag_cel/cel_order_stock', array('order_id' => $order_id));-->
+<!--			]]></add>-->
+<!--		</operation>-->
+<!--		-->
+<!--		<operation>-->
+<!--			<search><![CDATA[-->
+<!--				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);-->
+<!--			]]></search>-->
+<!--			<add><![CDATA[-->
+<!--				$this->load->controller('extension/module/stock_emag_cel/emag_order_stock', array('order_id' => $order_id));-->
+<!--				$this->load->controller('extension/module/stock_emag_cel/cel_order_stock', array('order_id' => $order_id));-->
+<!--			]]></add>-->
+<!--		</operation>-->
+<!--		-->
+<!--	</file>-->
+	
+	<file path="catalog/model/checkout/order.php">
+		<operation>
+			<search><![CDATA[
+				$this->cache->delete('product');
+			]]></search>
+			<add position="before"><![CDATA[
+				$this->load->controller('extension/module/stock_emag_cel/emag_order_stock', array('order_id' => $order_id));
+				$this->load->controller('extension/module/stock_emag_cel/cel_order_stock', array('order_id' => $order_id));
+			]]></add>
+		</operation>
+	</file>
+	
+	<!-- SETTINGS -->
+	
+<!--	<file path="admin/language/ro-ro/setting/setting.php">-->
+<!--		<operation>-->
+<!--			<search><![CDATA[-->
+<!--				$_['entry_google_analytics']           = 'Codul Google Analytics';-->
+<!--			]]></search>-->
+<!--			<add position="after"><![CDATA[-->
+<!--				$_['entry_cancel_status']           = 'Stasul comenzii anulate';-->
+<!--				$_['help_cancel_status']           = 'Codul Google Analytics';-->
+<!--			]]></add>-->
+<!--		</operation>-->
+<!--	</file>-->
+<!--	-->
+<!--	<file path="admin/view/template/setting/setting.twig">-->
+<!--		<operation>-->
+<!--			<search><![CDATA[-->
+<!--				<label class="col-sm-2 control-label" for="input-fraud-status"><span data-toggle="tooltip" title="{{ help_fraud_status }}">{{ entry_fraud_status }}</span></label>-->
+<!--			]]></search>-->
+<!--			<add position="before" offset="1"><![CDATA[-->
+<!--				<div class="form-group">-->
+<!--          <label class="col-sm-2 control-label" for="input-complete-status"><span data-toggle="tooltip" title="{{ help_cancel_status }}">{{ entry_cancel_status }}</span></label>-->
+<!--          <div class="col-sm-10">-->
+<!--            <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for order_status in order_statuses %}-->
+<!--              <div class="checkbox">-->
+<!--                <label> {% if order_status.order_status_id in config_cancel_status %}-->
+<!--                  <input type="checkbox" name="config_cancel_status[]" value="{{ order_status.order_status_id }}" checked="checked" />-->
+<!--                  {{ order_status.name }}-->
+<!--                  {% else %}-->
+<!--                  <input type="checkbox" name="config_cancel_status[]" value="{{ order_status.order_status_id }}" />-->
+<!--                  {{ order_status.name }}-->
+<!--                  {% endif %} </label>-->
+<!--              </div>-->
+<!--              {% endfor %} </div>-->
+<!--            {% if error_complete_status %}-->
+<!--            <div class="text-danger">{{ error_complete_status }}</div>-->
+<!--            {% endif %} </div>-->
+<!--        </div>-->
+<!--			]]></add>-->
+<!--		</operation>-->
+<!--	</file>-->
+<!--	-->
+<!--	<file path="admin/controller/setting/setting.php">-->
+<!--		<operation>-->
+<!--			<search><![CDATA[-->
+<!--				if (isset($this->request->post['config_complete_status'])) {-->
+<!--			]]></search>-->
+<!--			<add position="before"><![CDATA[-->
+<!--				if (isset($this->request->post['config_cancel_status'])) {-->
+<!--					$data['config_cancel_status'] = $this->request->post['config_cancel_status'];-->
+<!--				} elseif ($this->config->get('config_cancel_status')) {-->
+<!--					$data['config_cancel_status'] = $this->config->get('config_cancel_status');-->
+<!--				} else {-->
+<!--					$data['config_cancel_status'] = array();-->
+<!--				}-->
+<!--			]]></add>-->
+<!--		</operation>-->
+<!--	</file>-->
+	
+	<!-- END SETTINGS -->
+
+</modification>

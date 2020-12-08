@@ -1,0 +1,94 @@
+.page-header{
+	background:#102565;
+	margin: 0px;
+	height: 120px;
+    padding: 43px 15px;
+}
+.page-header h1{
+	margin-left:10px;
+}
+.emlogo{
+	margin-top: -11px;
+    margin-left: -26px;
+    float: left;
+}
+.mynav
+{
+	background-color:#fecd2f !important; 
+	border-radius:0px !important;
+}
+.navbar-inverse .navbar-nav > li > a
+{
+	color:#333 !important;
+	font-size:14px !important;
+	font-weight:bold !important;
+}
+#content h1{
+	color:white;
+}
+.breadcrumb li a {
+    color: #fff;
+    font-size: 12px;
+}
+.breadcrumb li:last-child a {
+    color: #fecd2f;
+    font-size: 13px;
+    font-weight: bold;
+}
+.breadcrumb li + li:before {
+    color: #fff;
+}
+
+.nav-tabs {
+	    background: #fecd2f;
+    padding: 0px 0;
+	border: 1px solid #090909;
+}
+.nav-tabs > li{
+	/* padding:10px 10px; */
+	font-size:14px;
+	border-right: 1px solid black;
+}
+.nav-tabs > li > a{
+	padding:15px 20px;
+	margin:0px;
+	border-radius:0px;
+	color:#000;
+	font-size:15px;
+	font-weight:bold;
+}
+.nav-tabs > li > a:hover, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus{
+	background-color: #000;
+		color:#fff;
+		border:0px;
+		border-right: 2px solid black;
+		padding:16px 20px;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+	    background-color: #000;
+		color:#fff;
+		border:0px;
+		border-right: 2px solid black;
+		padding:16px 20px;
+}
+.pdnone{
+	padding:0px;
+}
+.panel-default{
+	border-width:0px;	
+}
+.form-horizontal .form-group{
+	margin:0px;
+}
+.btn-primary{
+	color: #000;
+    background-color: #fecd2f;
+    border-color: #fecd2f;
+}
+
+@media only screen and (max-width: 600px) {
+   .page-header{
+	height: auto;
+	}
+}
+

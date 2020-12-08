@@ -1,0 +1,117 @@
+{{ header }}
+<div class="container">
+	<ul class="breadcrumb">
+		{% for breadcrumb in breadcrumbs %}
+		<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+		{% endfor %}
+	</ul>
+	<div class="row">{{ column_left }}
+		{% if column_left and column_right %}
+		{% set class = 'col-sm-6' %}
+		{% elseif column_left or column_right %}
+		{% set class = 'col-sm-9' %}
+		{% else %}
+		{% set class = 'col-sm-12' %}
+		{% endif %}
+		<div id="content" class="{{ class }}">
+			{{ content_top }}
+			<div class="content">
+				<div class="adk-message adk-error">
+					<div class="adk-message-icon"></div>
+					<div class="adk-message-body"></div>
+				</div>
+				<div class="adk-message adk-ok">
+					<div class="adk-message-icon"></div>
+					<div class="adk-message-body"></div>
+				</div>
+				<h3>{{ __( 'Personal data management tools' ) }}</h3>
+				<div class="adk-page-information">
+					<i>{{ __( 'This page provides you with the tools to manage your personal data, which are stored in our store' ) }}</i>
+				</div>
+				<div class="adk-page-notes">
+					{{ __( 'After making a request email will be sent to you with a link to authorize the request' ) }}
+				</div>
+				{% if c( 'request_expire' ) %}
+				<div class="adk-page-notes">
+					{{ __( 'Expiration period for each request, in days:' ) }} {{ c( 'request_expire' ) }}
+				</div>
+				{% endif %}
+
+				<div class="adk-controls">
+					<div class="adk-control adk-get-data" data-type="{{ constant('Advertikon\\Adk_Gdpr\\Request::TYPE_INFORMATION') }}">
+						<div class="adk-icon"></div>
+						<div class="adk-description">
+							<h3>{{ __( 'Recieve personal data' ) }}</h3>
+							{{ __( 'We will send you a copy of all your personal data we possess. Also, data will be in a common machine-readable format so that you can use it to pass it on to another data collector of your choice' ) }}
+						</div>
+					</div>
+					<div class="adk-control adk-edit-data">
+						<div class="adk-icon"></div>
+						<div class="adk-description">
+							<h3>{{ __( 'Edit/Rectify data' ) }}</h3>
+							{{ __( 'In order to edit your personal data, you need to login into your account' ) }}
+						</div>
+					</div>
+					<div class="adk-control adk-erase-data" data-type="{{ constant('Advertikon\\Adk_Gdpr\\Request::TYPE_ERASE') }}">
+						<div class="adk-icon"></div>
+						<div class="adk-description">
+							<h3>{{ __( 'Erase data' ) }}</h3>
+							{{ __( 'Your personal data, including account and all related information (bonuses, reward points, orders history etc) will be totally removed from our store. If the data is still needed for us to process your order or fulfill the obligations to you under the contract between us (return of a product, money chargeback, etc.) we will not be able to satisfy such a request' ) }}
+						</div>
+					</div>
+					{% if is_extended %}
+					<div class="adk-control adk-restrict-data" data-type="{{ constant('Advertikon\\Adk_Gdpr\\Request::TYPE_BLOCK_PROCESS') }}">
+						<div class="adk-icon"></div>
+						<div class="adk-description">
+							<h3>{{ __( 'Restrict data processing' ) }}</h3>
+							{{ __( 'Restriction of data processing is an alternative to data erasure: we will continue to store your data, but will not process it until you lift the restriction. You won\'t be able to access your account until restriction will be lifted. If the data is still needed for us to process your order or fulfill the obligations to you under the contract between us (return of a product, money chargeback, etc.) we will not be able to satisfy such a request' ) }}
+						</div>
+					</div>
+					<div class="adk-control adk-unrestrict-data" data-type="{{ constant('Advertikon\\Adk_Gdpr\\Request::TYPE_UNBLOCK_PROCESS') }}">
+						<div class="adk-icon"></div>
+						<div class="adk-description">
+							<h3>{{ __( 'Cancel data processing restriction' ) }}</h3>
+							{{ __( 'Restriction on the processing of your personal data will be lifted and we are able to process them' ) }}
+						</div>
+					</div>
+					<div class="adk-control adk-withdraw-data" data-type="{{ constant('Advertikon\\Adk_Gdpr\\Request::TYPE_WITHDRAW') }}">
+						<div class="adk-icon"></div>
+						<div class="adk-description">
+							<h3>{{ __( 'Withdraw a consent' ) }}</h3>
+							{{ __( 'Withdrawal of a consent of processing your personal data, collected based on the consent (eg for direct marketing purposes) means that we will stop processing that data for purposes granted by the consent and if we have no legal obligations towards you, such as order processing, all your personal data will be removed from our store (your account and all related information: bonuses, reward points, order history etc)' ) }}
+						</div>
+					</div>
+				{% endif %}
+				</div>
+
+			</div>
+			{{ content_bottom }}
+		</div>
+	{{ column_right }}
+	</div>
+</div>
+<div class="adk-form">
+	<label>{{ __( 'Email' ) }}
+		<input type="email" class="form-control">
+	</label>
+	<i class="adk-form-information">
+		{{ __( 'Email address will be used to identify your personal data in our store and to send an authorization code to' ) }}
+	</i>
+	{% if captcha %}
+	<div id="captcha-wrapper" style="margin-bottom: 10px;">
+		{{ captcha }}
+	</div>
+	{% endif %}
+	{{ send_button }}
+	<button type="button" class="btn btn-danger" id="adk-cancel">{{ __( 'Cancel' ) }}</button>
+</div>
+<script>
+$( document ).ready( function() {
+	if ( ! 'ADK' in window ) {
+		window.ADK = {}
+	}
+
+	window.ADK.locale = $.extend( {{ locale }}, window.ADK.locale ) ;
+} );
+</script>
+{{ footer }}

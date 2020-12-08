@@ -1,0 +1,12 @@
+.adk-email-list {
+	height: 300px;
+	overflow-y: scroll;
+}
+
+.adk-email-list label {
+	width: 100%;
+}
+
+.adk-email-list input {
+	margin-right: 10px;
+}

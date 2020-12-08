@@ -1,0 +1,84 @@
+<style>
+/* Theme Color */
+{% if colors.content_background %}
+.jd_large_cols ul li .jd_panel, .jade_cus_profile, .jd_related_pr .jd_heading, .jd_heading, .jd_related_pr .button-group, .jd_btn_thm {
+	background: {{ colors.content_background }};
+}
+{% endif %}
+
+/* Font Colors */
+{% if colors.content_font %}
+.jd_large_cols ul li .jd_panel h2, .jd_large_cols ul li .jd_panel h4, .jade_cus_profile .name, .jade_cus_profile .email, .jd_related_pr .jd_heading, .jd_heading, .jd_related_pr .button-group button{
+	color: {{ colors.content_font }};
+}
+{% endif %}
+/* Panel Icon Color */
+{% if colors.section_font %}
+.jd_large_cols ul li .jd_panel i{
+	color: {{ colors.section_font }};
+}
+{% endif %}
+
+/* Panel More Info Color */
+{% if colors.section_moreinfo_background %}
+.jd_large_cols ul li .jd_info {
+	background: {{ colors.section_moreinfo_background }};
+}
+{% endif %}
+
+{% if colors.section_moreinfo_font %}
+.jd_large_cols ul li .jd_info {
+	color: {{ colors.section_moreinfo_font }};
+}
+{% endif %}
+
+/* Account Links Colors */
+{% if colors.links_border %}
+.jd_small_cols ul li a{
+	border-color: {{ colors.links_border }};
+}
+{% endif %}
+
+{% if colors.links_font %}
+.jd_small_cols ul li a {
+	color: {{ colors.links_font }};
+}
+{% endif %}
+
+{% if colors.links_background %}
+.jd_small_cols ul li a {
+	background-color: {{ colors.links_background }};
+}
+{% endif %}
+
+/* Account Links Border Bottom Colos */
+{% if colors.links_border_bottom %}
+.jd_small_cols ul li a:after{
+	background-color: {{ colors.links_border_bottom }};
+}
+{% endif %}
+
+/* Table Background Color*/
+{% if colors.latest_order_background %}
+.jd_latest_order{
+	background-color: {{ colors.latest_order_background }};
+}
+{% endif %}
+
+{% if colors.table_font %}
+.jd_latest_order table th, .jd_latest_order table td {
+	color: {{ colors.table_font }};
+}
+{% endif %}
+
+{% if colors.related_font %}
+.jd_related_pr .jd_caption .name, .jd_related_pr .jd_caption .price, .jd_related_pr .jd_caption .description{
+	color: {{ colors.related_font }};
+}
+{% endif %}
+/* Profile Div Width */
+
+{% if dp_width %}
+.jade_cus_profile .image { width: {{ dp_width }}; }
+{% endif %}
+</style>

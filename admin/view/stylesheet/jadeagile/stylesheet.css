@@ -1,0 +1,45 @@
+/*Jade Core CSS Do Not Modify, Override Instead. Ends*/
+fieldset legend {
+  color: #dab310;
+  font-weight: bold;
+  margin-top: 30px;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+.notopmagin {
+  margin-top: 0;
+}
+.form-horizontal .control-label {
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.nav-tabs > li > a, .nav-pills > li > a {
+  font-size: 16px;
+  padding: 15px 20px;
+}
+
+.btn-group .btn.btn-default:hover {
+    background-color: #dab310;
+    border-color: #dab310;
+    color: #fff;
+}
+.btn-group .btn.btn-default.active {
+    background-color: #dab310;
+    border-color: #dab310;
+    color: #fff;
+}
+.fa-md {
+  font-size: 0.80em;
+}
+.help:before {
+  font-family: FontAwesome;
+  content: "\f059";
+  margin-right: 4px;
+  font-size: 14px;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  border-top: 3px solid #dab310;
+}
+
+/*Jade Core CSS Do Not Modify, Override Instead. Ends*/
